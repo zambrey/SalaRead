@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html  lang="en-US">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="css/StyleSheet1.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+ <script>
+    $(function() {
+        var availableTags = [
+            "John Stasko",
+            "James Foley",
+            "Ellen Do",
+            "Gregory Abowd",
+            "Thad Staner",
+            "Michael Best",
+            "Ellen Zagura",
+            "Mark Guzdial",
+            "Amy Bruckman",
+            "Russ Clark",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $( "#tags" ).autocomplete({
+            source: availableTags
+        });
+    });
+	</script>
+</head>
+<body>
+    <div id="container">
+		<div id="Map" ><img class="ga" src="images/ga.gif"/>
+			<div id="navigation">
+				<div id="search">
+					
+					<label for="tags">Search: </label>
+					
+					<input id="tags" style="width:80%;height: 50%;margin-top: 8px;"/>
+					
+				</div><!--search-->
+				<div id="browse">
+					<p class="navigation">
+					Browse by Department
+					</p>
+				</div><!--browse-->
+			</div><!--navigation-->
+		 </div><!--Map--> 
+		
+		 <div id="Data">
+		 <div id="stats">
+			<div id="left">
+				<p class="data">
+				Test
+				</p>
+			</div> <!--left-->
+			<div id="center">
+				<div id="top">
+				<p class="data">
+				Test
+				</p>
+				</div><!--top-->
+				<div id="bottom">
+				<p class="data">
+				Test
+				</p>
+				</div><!--bottom-->
+			</div> <!--center-->
+			
+			<div id="right">
+				<p class="data">
+				Test
+				</p>
+			</div> <!--right-->
+			</div><!--stats-->
+			<div id="year">
+				<span class="years">
+				YEAR
+				</span>
+				<span class="years">
+				2008
+				</span>
+				<span class="years">
+				2009
+				</span>	
+				<span class="years">
+				2010
+				</span>
+				<span class="years">
+				2011
+				</span>
+				<span class="years">
+				All
+				</span>
+			</div> <!--year-->
+		 </div><!--Data-->
+    </div><!--Container-->
+</body>
+</html>
