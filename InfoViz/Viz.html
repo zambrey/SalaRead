@@ -7,10 +7,15 @@
 
 <link rel="stylesheet" type="text/css" href="css/StyleSheet1.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="GThomeScreen.js"></script>
  <script>
-    $(function() {
+ var year="2011";
+ google.load('visualization', '1', {packages: ['corechart']});
+ google.load('visualization', '1', {packages: ['table']});
+    /*$(function() {
         var availableTags = [
             "John Stasko",
             "James Foley",
@@ -38,7 +43,12 @@
         $( "#tags" ).autocomplete({
             source: availableTags
         });
-    });
+    });*/
+	google.setOnLoadCallback(function() {
+    	drawVisualizations("2011");
+	});
+	//google.setOnLoadCallback(drawVisualizations);
+	google.setOnLoadCallback(browsingQueries);
 	</script>
 </head>
 <body>
@@ -53,9 +63,9 @@
 					
 				</div><!--search-->
 				<div id="browse">
-					<p class="navigation">
-					Browse by Department
-					</p>
+				<select id='listDept'>
+					<option value=''>&lt;Browse department&gt;</option>
+				</select>
 				</div><!--browse-->
 			</div><!--navigation-->
 		 </div><!--Map--> 
@@ -63,9 +73,7 @@
 		 <div id="Data">
 		 <div id="stats">
 			<div id="left">
-				<p class="data">
-				Test
-				</p>
+				
 			</div> <!--left-->
 			<div id="center">
 				<div id="top">
@@ -74,33 +82,30 @@
 				</p>
 				</div><!--top-->
 				<div id="bottom">
-				<p class="data">
-				Test
-				</p>
+				
 				</div><!--bottom-->
 			</div> <!--center-->
 			
 			<div id="right">
-				<p class="data">
-				Test
-				</p>
+				
 			</div> <!--right-->
 			</div><!--stats-->
 			<div id="year">
 				<span class="years">
+
 				YEAR
 				</span>
 				<span class="years">
-				2008
+				<button type="button" onclick="drawVisualizations('2008');">2008</button>
 				</span>
 				<span class="years">
-				2009
+				<button type="button" onclick="drawVisualizations('2009');">2009</button>
 				</span>	
 				<span class="years">
-				2010
+				<button type="button" onclick="drawVisualizations('2010');">2010</button>
 				</span>
 				<span class="years">
-				2011
+				<button type="button" onclick="drawVisualizations('2011');">2011</button>
 				</span>
 				<span class="years">
 				All
