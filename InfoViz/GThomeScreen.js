@@ -4,37 +4,40 @@
 3. Top 10 salaries (Right)
 4. Salary range (Center top) NOT YET IN
 */
+var gatechTableID = "1WcLU5ysaaR5Bo0Ypaz7G4RRogOzCEYb_yt1ARC4";	//gatech information all years
+var gatech2011TableID = "1nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s"; //wont need to use this anywhere
+var APIkey = "AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ"; /* need to include this API key at the end of query like "&key=APIkey" (no spaces) if accessing from browser*/
 
 function drawVisualizations(year){
 	/*Avg sal by title*/
-	var queryText1 = "SELECT%20Title,%20AVERAGE(Salary)%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20AVERAGE(Salary)%20DESC&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText1 = "SELECT%20Title,%20AVERAGE(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20AVERAGE(Salary)%20DESC";
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
 	query.send(leftCallBack);
 
 	/*Avg sal by dept*/
-	var queryText2 = "SELECT%20Department,%20AVERAGE(Salary)%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s%20WHERE%20Year="+year+"%20GROUP%20BY%20Department%20ORDER%20BY%20AVERAGE(Salary)%20DESC&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText2 = "SELECT%20Department,%20AVERAGE(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Department%20ORDER%20BY%20AVERAGE(Salary)%20DESC";
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText2);
 	query.send(centerBottomCallBack);
 
 	/*Top 10*/
-	var queryText3 = "SELECT%20Name,%20Title,%20Department,%20Salary%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s%20WHERE%20Year="+year+"%20ORDER%20BY%20Salary%20DESC%20LIMIT%2010&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText3 = "SELECT%20Name,%20Title,%20Department,%20Salary%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20ORDER%20BY%20Salary%20DESC%20LIMIT%2010";
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
 	query.send(rightCallBack);
 
 	/*Sal range by title*/
-	var queryText4 = "SELECT%20Title,%20MINIMUM(Salary),%20AVERAGE(Salary),%20AVERAGE(Salary),%20MAXIMUM(Salary)%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20Title%20ASC&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText4 = "SELECT%20Title,%20MINIMUM(Salary),%20AVERAGE(Salary),%20AVERAGE(Salary),%20MAXIMUM(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20Title%20ASC";
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
 	query.send(centerTopCallBack);
 }
 
-function browsingQueries(){
+function browsingQueries(year){
 	/*Autocomplete search*/
-	var queryText5 = "SELECT%20Name%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText5);
 	query.send(autoCompleteCallBack);
 
 	/*Populate browse dept*/
-	var queryText6 = "SELECT%20Department%20FROM%201nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
+	var queryText6 = "SELECT%20Department%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateDeptCallBack);
 }

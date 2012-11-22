@@ -48,7 +48,9 @@
     	drawVisualizations("2011");
 	});
 	//google.setOnLoadCallback(drawVisualizations);
-	google.setOnLoadCallback(browsingQueries);
+	google.setOnLoadCallback(function() {
+    	browsingQueries("2011");
+	});
 	</script>
 </head>
 <body>
@@ -96,16 +98,16 @@
 				YEAR
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2008');">2008</button>
+				<button type="button" onclick="drawVisualizations('2008');browsingQueries('2008');">2008</button>
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2009');">2009</button>
+				<button type="button" onclick="drawVisualizations('2009');browsingQueries('2009');">2009</button>
 				</span>	
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2010');">2010</button>
+				<button type="button" onclick="drawVisualizations('2010');browsingQueries('2010');">2010</button>
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2011');">2011</button>
+				<button type="button" onclick="drawVisualizations('2011');browsingQueries('2011');">2011</button>
 				</span>
 				<span class="years">
 				All
