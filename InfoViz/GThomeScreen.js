@@ -42,6 +42,25 @@ function browsingQueries(year){
 	query.send(populateDeptCallBack);
 }
 
+function initialize() {
+  
+    var map = new GMap2(document.getElementById('maps'));
+    /*map.setMapType(G_HYBRID_MAP);*/
+    var center = new GLatLng(33.7791792, -84.3996303);
+    map.setCenter(center, 14);
+  var marker = new GMarker(center);
+
+    GEvent.addListener(marker, "click", function() {
+      map.closeInfoWindow();
+    });
+
+    GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml("Georgia Institute of Technology");
+    });
+      map.addOverlay(marker);
+}
+
+
 function leftCallBack(response){
 	if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
