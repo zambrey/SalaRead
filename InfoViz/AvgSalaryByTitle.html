@@ -20,7 +20,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	  var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText);
 		 query.send(callbackFunction);
       }
-
+    var chart;  
 	  function callbackFunction(response){
 		if (response.isError()) {
 			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
@@ -36,10 +36,17 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 		  height: 800
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('visualization'));
+        chart = new google.visualization.BarChart(document.getElementById('visualization'));
         chart.draw(data, options);
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+
 	  }
-      
+    
+    function selectHandler(e) {
+      alert(chart.getSelection());
+    }
+
 	  google.setOnLoadCallback(drawVisualization);
     </script>
   </head>

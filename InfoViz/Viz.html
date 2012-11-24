@@ -16,35 +16,6 @@
  var year="2011";
  google.load('visualization', '1', {packages: ['corechart']});
  google.load('visualization', '1', {packages: ['table']});
-    /*$(function() {
-        var availableTags = [
-            "John Stasko",
-            "James Foley",
-            "Ellen Do",
-            "Gregory Abowd",
-            "Thad Staner",
-            "Michael Best",
-            "Ellen Zagura",
-            "Mark Guzdial",
-            "Amy Bruckman",
-            "Russ Clark",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-        $( "#tags" ).autocomplete({
-            source: availableTags
-        });
-    });*/
 	google.setOnLoadCallback(function() {
     	drawVisualizations("2011");
 	});
@@ -54,7 +25,7 @@
 
 	});
 	$(function() {
-    initialize();
+    initMap();
 
 });
 	</script>
@@ -87,9 +58,6 @@
 			</div> <!--left-->
 			<div id="center">
 				<div id="top">
-				<p class="data">
-				Test
-				</p>
 				</div><!--top-->
 				<div id="bottom">
 				
