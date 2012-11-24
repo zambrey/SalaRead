@@ -17,6 +17,7 @@ var leftData;
 var centerTopData;
 var centerBottomData;
 var rightData;
+var top10Data;
 
 
 function drawVisualizations(year){
@@ -98,40 +99,15 @@ function drawLeftChart(){
     	//centerTopChart.highlightRow([e],false);
     	var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: leftData.getValue(e.row,0)}]);
     	if (centerTopIndex.length > 0){
-			var tempData = new google.visualization.DataTable();
-			tempData.addRows(centerTopData.getNumberOfRows());
-			tempData.addColumn('string','Title');
-			for(var i=0; i<8; i++)
-				tempData.addColumn('number','');
-			for(var i=0; i<centerTopData.getNumberOfRows(); i++){
-				tempData.setValue(i,0,centerTopData.getValue(i,0));
-				if(i==centerTopIndex[0]){
-					for(var j=0; j<4; j++){
-						tempData.setValue(i,j+1,0);
-						tempData.setValue(i,j+5,centerTopData.getValue(i,j+1));	
-					}
-				}
-				else{
-					for(var j=0; j<4; j++){
-						tempData.setValue(i,j+1,centerTopData.getValue(i,j+1));
-						tempData.setValue(i,j+5,0);
-					}
-				}
-			}	
+			highlightSeriesInCenterTopData(centerTopIndex[0]);
 		}
-		centerTopData = tempData;
-		drawCenterTopChart();
   	}
 
   	function barMouseOut(e) {
   		var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
-  			for(var j=0; j<4; j++){
-  				centerTopData.setValue(centerTopIndex[0],j+1,centerTopData.getValue(centerTopIndex[0],j+5));	
-  				centerTopData.setValue(centerTopIndex[0],j+5,0);
-  			}
+  			removeHighlightInCenterTopData(centerTopIndex[0]);
   		}
-		drawCenterTopChart();
     	//leftChart.setSelection([{'row': null, 'column': null}]);
     	//centerTopChart.setSelection([{'row': null, 'column': null}]);
   	}
@@ -145,8 +121,15 @@ function rightCallBack(response){
 		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 		return;
 	}
-
-	rightData = response.getDataTable();
+	top10Data = response.getDataTable();
+	rightData = new google.visualization.DataTable();
+	rightData.addColumn('string','Name');
+	rightData.addColumn('number','Salary');
+	rightData.addRows(10);
+	for(var i=0; i<10; i++){
+		rightData.setValue(i,0,top10Data.getValue(i,0));
+		rightData.setValue(i,1,top10Data.getValue(i,3));
+	}
 	drawRightChart();
 }
 
@@ -161,6 +144,41 @@ function drawRightChart(){
 	};
 	rightChart = new google.visualization.Table(document.getElementById('right'));
     rightChart.draw(rightData, options);
+    function tableSelected(e){
+    	selected = rightChart.getSelection();
+    	if(selected.length > 0){
+    		var index = selected[0].row;
+    		var leftIndex = leftData.getFilteredRows([{column:0, value: top10Data.getValue(index,1)}]);
+    		if(leftIndex.length > 0)
+    			highlightRowInLeftData(leftIndex[0]);
+    		var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: top10Data.getValue(index,1)}]);
+    		if(centerTopIndex.length > 0)
+    			highlightSeriesInCenterTopData(centerTopIndex[0]);
+    		var centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: top10Data.getValue(index,2)}]);
+    		if(centerBottomIndex.length > 0)
+    			highlightColumnInCenterBottomData(centerBottomIndex[0]);
+    	}
+    }
+	google.visualization.events.addListener(rightChart,'select',tableSelected);
+    //google.visualization.events.addListener(rightChart,'onmouseout',tableMouseOut);
+}
+
+function tableMouseOut(e){
+	if(rightChart.getSelection().length > 0){
+		rightChart.setSelection([{'row': null, 'column': null}]);
+    	var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
+  		if(leftIndex.length > 0){
+  			removeHighLightInLeftData(leftIndex[0]);
+		}
+    	var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+  		if(centerTopIndex.length > 0){
+  			removeHighlightInCenterTopData(centerTopIndex[0]);
+  		}
+    	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+  		if(centerBottomIndex.length > 0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+		}
+	}
 }
 
 function centerBottomCallBack(response){
@@ -211,8 +229,8 @@ function drawCenterTopChart(){
 		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}},
 		height: 175,  
       	width: 500,
-      	series: [{color: 'Black'}],
-      	candlestick:{risingColor: {stroke: "Red"}},
+      	/*series: [{color: 'Black'}],
+      	candlestick:{risingColor: {stroke: "Green"}},*/
       	legend: {position: 'none'}
 	};
 
@@ -223,25 +241,8 @@ function drawCenterTopChart(){
 		var leftIndex = leftData.getFilteredRows([{column:0, value: centerTopData.getValue(e.row,0)}]);
 		if (leftIndex.length > 0){
 			/*Modify leftData*/
-			var tempData = new google.visualization.DataTable();
-			tempData.addRows(leftData.getNumberOfRows());
-			tempData.addColumn('string','Title');
-			tempData.addColumn('number','Salary');
-			tempData.addColumn('number','Selected');
-			for(var i=0; i<leftData.getNumberOfRows(); i++){
-				tempData.setValue(i,0,leftData.getValue(i,0));
-				if(i==leftIndex[0]){
-					tempData.setValue(i,1,0);
-					tempData.setValue(i,2,leftData.getValue(i,1));
-				}
-				else{
-					tempData.setValue(i,1,leftData.getValue(i,1));
-					tempData.setValue(i,2,0);
-				}
-			}	
+			highlightRowInLeftData(leftIndex[0]);
 		}
-		leftData = tempData;
-		drawLeftChart();
     	//centerTopChart.setSelection([e]);
     	//leftChart.setSelection([e]);
   	}
@@ -249,10 +250,8 @@ function drawCenterTopChart(){
   	function rangeMouseOut(e) {
   		var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
   		if(leftIndex.length > 0){
-  			leftData.setValue(leftIndex[0],1,leftData.getValue(leftIndex[0],2));
-  			leftData.setValue(leftIndex[0],2,0);
+  			removeHighLightInLeftData(leftIndex[0]);
 		}
-		drawLeftChart();
     	//centerTopChart.setSelection([{'row': null, 'column': null}]);
     	//leftChart.setSelection([{'row': null, 'column': null}]);
   	}
@@ -289,4 +288,91 @@ function populateDeptCallBack(response){
 	var combo = document.getElementById('listDept');
 	for(var i=0; i<availableValues.length; i++)
 		combo.options[i+1]=new Option(availableValues[i],availableValues[i]);
+}
+
+function highlightRowInLeftData(rowInd){
+	var tempData = new google.visualization.DataTable();
+	tempData.addRows(leftData.getNumberOfRows());
+	tempData.addColumn('string','Title');
+	tempData.addColumn('number','Salary');
+	tempData.addColumn('number','Selected');
+	for(var i=0; i<leftData.getNumberOfRows(); i++){
+		tempData.setValue(i,0,leftData.getValue(i,0));
+		if(i==rowInd){
+			tempData.setValue(i,1,0);
+			tempData.setValue(i,2,leftData.getValue(i,1));
+		}
+		else{
+			tempData.setValue(i,1,leftData.getValue(i,1));
+			tempData.setValue(i,2,0);
+		}
+	}
+	leftData = tempData;
+	drawLeftChart();	
+}
+
+function removeHighLightInLeftData(rowInd){
+	leftData.setValue(rowInd,1,leftData.getValue(rowInd,2));
+  	leftData.setValue(rowInd,2,0);
+  	drawLeftChart();
+}
+
+function highlightSeriesInCenterTopData(rowInd){
+	var tempData = new google.visualization.DataTable();
+	tempData.addRows(centerTopData.getNumberOfRows());
+	tempData.addColumn('string','Title');
+	for(var i=0; i<8; i++)
+		tempData.addColumn('number','');
+	for(var i=0; i<centerTopData.getNumberOfRows(); i++){
+		tempData.setValue(i,0,centerTopData.getValue(i,0));
+		if(i==rowInd){
+			for(var j=0; j<4; j++){
+				tempData.setValue(i,j+1,0);
+				tempData.setValue(i,j+5,centerTopData.getValue(i,j+1));	
+			}
+		}
+		else{
+			for(var j=0; j<4; j++){
+				tempData.setValue(i,j+1,centerTopData.getValue(i,j+1));
+				tempData.setValue(i,j+5,0);
+			}
+		}
+	}
+	centerTopData = tempData;
+	drawCenterTopChart();	
+}
+
+function removeHighlightInCenterTopData(rowInd){
+	for(var j=0; j<4; j++){
+  		centerTopData.setValue(rowInd,j+1,centerTopData.getValue(rowInd,j+5));	
+  		centerTopData.setValue(rowInd,j+5,0);
+  	}
+  	drawCenterTopChart();
+}
+
+function highlightColumnInCenterBottomData(rowInd){
+	var tempData = new google.visualization.DataTable();
+	tempData.addRows(centerBottomData.getNumberOfRows());
+	tempData.addColumn('string','Department');
+	tempData.addColumn('number','Average');
+	tempData.addColumn('number','Selected');
+	for(var i=0; i<centerBottomData.getNumberOfRows(); i++){
+		tempData.setValue(i,0,centerBottomData.getValue(i,0));
+		if(i==rowInd){
+			tempData.setValue(i,1,0);
+			tempData.setValue(i,2,centerBottomData.getValue(i,1));
+		}
+		else{
+			tempData.setValue(i,1,centerBottomData.getValue(i,1));
+			tempData.setValue(i,2,0);
+		}
+	}
+	centerBottomData = tempData;	
+	drawCenterBottomChart();
+}
+
+function removeHighlightInCenterBottomData(rowInd){
+	centerBottomData.setValue(rowInd,1,centerBottomData.getValue(rowInd,2));
+  	centerBottomData.setValue(rowInd,2,0);
+  	drawCenterBottomChart();
 }
