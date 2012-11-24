@@ -45,14 +45,39 @@ function drawVisualizations(year){
 
 function browsingQueries(year){
 	/*Autocomplete search*/
-	var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
+	/*var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText5);
-	query.send(autoCompleteCallBack);
+	query.send(autoCompleteCallBack);*/
+	fetchAutocompleteData(year);
 
 	/*Populate browse dept*/
 	var queryText6 = "SELECT%20Department%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateDeptCallBack);
+}
+
+function fetchAutocompleteData(year){
+	var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
+	// Construct the URL to grab the data
+    var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+    url.push('?sql=' + queryText5);
+    url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+    url.push('&callback=?');
+	// Get the variables from the table, in a loop
+	var availableTags = new Array();
+	$.ajax({
+		url: url.join(''),
+		dataType: 'jsonp',
+		success: function (data) {
+			var rows = data['rows'];
+			for (var i in rows) {
+				availableTags[i]=rows[i][0];
+			}
+		}
+	});
+	$("#tags").autocomplete({
+       source: availableTags
+    });
 }
 
 
@@ -260,22 +285,6 @@ function drawCenterTopChart(){
     google.visualization.events.addListener(centerTopChart, 'onmouseout', rangeMouseOut);
 }
 
-
-function autoCompleteCallBack(response){
-	if (response.isError()) {
-		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-		return;
-	}
-
-	var data = response.getDataTable();
-	/*var len = data.getNumberOfRows();
-	for(var i=0; i<len; i++)
-		availableTags[i]=response.getValue(i,0);*/
-	var availableTags = data.getDistinctValues(0);
-	$("#tags").autocomplete({
-       source: availableTags
-    });
-}
 
 function populateDeptCallBack(response){
 	if (response.isError()) {
