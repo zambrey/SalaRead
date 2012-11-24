@@ -19,6 +19,13 @@ var centerBottomData;
 var rightData;
 var top10Data;
 
+var currentYear = '2011';
+
+function changeYear(year){
+	currentYear = year;
+	drawVisualizations(year);
+	browsingQueries(year);
+}
 
 function drawVisualizations(year){
 	/*Avg sal by title*/
@@ -55,6 +62,47 @@ function browsingQueries(year){
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateDeptCallBack);
 }
+
+function dataByDepartment(dept){
+	/*This is called when a department is selected*/
+	var deptList = document.getElementById('listDept');
+	if(deptList.selectedIndex == 0){
+		drawVisualizations(currentYear);
+		browsingQueries(currentYear);
+	}
+	else{
+		deptRestrictedQueries(dept);
+
+		/*Highlight selected department in centerBottomChart*/
+		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+  		if(centerBottomIndex.length > 0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+  		}
+		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
+    	if(centerBottomIndex.length > 0)
+    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	
+	}
+}
+
+function deptRestrictedQueries(dept){
+	var queryText1 = "SELECT Title, AVERAGE(Salary) FROM "+gatechTableID+" WHERE Year="+currentYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY AVERAGE(Salary) DESC";
+	queryText1 = encodeURIComponent(queryText1);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
+	query.send(leftCallBack);
+
+	/*Top 10*/
+	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE Year="+currentYear+" AND Department='"+dept+"' ORDER BY Salary DESC LIMIT 10";
+	queryText3 = encodeURIComponent(queryText3);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
+	query.send(rightCallBack);
+
+	/*Sal range by title*/
+	var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE Year="+currentYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY Title ASC";
+	queryText4 = encodeURIComponent(queryText4);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
+	query.send(centerTopCallBack);
+}
+
 
 function fetchAutocompleteData(year){
 	var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
@@ -150,8 +198,8 @@ function rightCallBack(response){
 	rightData = new google.visualization.DataTable();
 	rightData.addColumn('string','Name');
 	rightData.addColumn('number','Salary');
-	rightData.addRows(10);
-	for(var i=0; i<10; i++){
+	rightData.addRows(top10Data.getNumberOfRows());
+	for(var i=0; i<top10Data.getNumberOfRows(); i++){
 		rightData.setValue(i,0,top10Data.getValue(i,0));
 		rightData.setValue(i,1,top10Data.getValue(i,3));
 	}
@@ -168,6 +216,8 @@ function drawRightChart(){
 		width: 250
 	};
 	rightChart = new google.visualization.Table(document.getElementById('right'));
+	var formatter = new google.visualization.NumberFormat({prefix: '$'});
+  	formatter.format(rightData, 1); // Apply formatter to second column
     rightChart.draw(rightData, options);
     function tableSelected(e){
     	selected = rightChart.getSelection();
@@ -200,7 +250,8 @@ function tableMouseOut(e){
   			removeHighlightInCenterTopData(centerTopIndex[0]);
   		}
     	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
-  		if(centerBottomIndex.length > 0){
+    	var deptList = document.getElementById('listDept');
+  		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
   			removeHighlightInCenterBottomData(centerBottomIndex[0]);
 		}
 	}
@@ -213,6 +264,9 @@ function centerBottomCallBack(response){
 	}
 	
 	centerBottomData = response.getDataTable();
+	centerBottomData.addColumn('number','');
+	for(var j=0; j<centerBottomData.getNumberOfRows(); j++)
+		centerBottomData.setValue(j,2,0);
 	drawCenterBottomChart();
 }
 
@@ -360,6 +414,8 @@ function removeHighlightInCenterTopData(rowInd){
 }
 
 function highlightColumnInCenterBottomData(rowInd){
+	if(centerBottomData.getValue(rowInd,1)==0 && centerBottomData.getValue(rowInd,2)!=0)
+		return;
 	var tempData = new google.visualization.DataTable();
 	tempData.addRows(centerBottomData.getNumberOfRows());
 	tempData.addColumn('string','Department');

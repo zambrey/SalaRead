@@ -44,7 +44,7 @@
 					
 				</div><!--search-->
 				<div id="browse">
-				<select id='listDept'>
+				<select id='listDept' onchange="dataByDepartment(this.options[this.selectedIndex].value);">
 					<option value=''>&lt;Browse department&gt;</option>
 				</select>
 				</div><!--browse-->
@@ -74,16 +74,16 @@
 				YEAR
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2008').className='buttonclick';browsingQueries('2008');">2008</button>
+				<button type="button" onclick="changeYear('2008');">2008</button>
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2009').className='buttonclick';browsingQueries('2009');">2009</button>
+				<button type="button" onclick="changeYear('2009');">2009</button>
 				</span>	
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2010').className='buttonclick';browsingQueries('2010');">2010</button>
+				<button type="button" onclick="changeYear('2010');">2010</button>
 				</span>
 				<span class="years">
-				<button type="button" onclick="drawVisualizations('2011').className='buttonclick';browsingQueries('2011');">2011</button>
+				<button type="button" onclick="changeYear('2011');">2011</button>
 				</span>
 				<span class="years">
 				All
