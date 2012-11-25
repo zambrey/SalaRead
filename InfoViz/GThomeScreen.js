@@ -196,10 +196,12 @@ function rightCallBack(response){
 	}
 	top10Data = response.getDataTable();
 	rightData = new google.visualization.DataTable();
+//	rightData.addColumn('number','#');
 	rightData.addColumn('string','Name');
 	rightData.addColumn('number','Salary');
 	rightData.addRows(top10Data.getNumberOfRows());
 	for(var i=0; i<top10Data.getNumberOfRows(); i++){
+		//rightData.setValue(i,0,i+1);
 		rightData.setValue(i,0,top10Data.getValue(i,0));
 		rightData.setValue(i,1,top10Data.getValue(i,3));
 	}
@@ -208,12 +210,10 @@ function rightCallBack(response){
 
 function drawRightChart(){
 	var options = {
-		title: 'Average Salary by Title',
-		vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
-		isStacked: true,
 		height: 350,
-		width: 250
+		width: 250,
+		showRowNumber: true,
+		firstRowNumber: 1
 	};
 	rightChart = new google.visualization.Table(document.getElementById('right'));
 	var formatter = new google.visualization.NumberFormat({prefix: '$'});
@@ -297,6 +297,10 @@ function centerTopCallBack(response){
 		for(var j=0; j<centerTopData.getNumberOfRows(); j++)
 			centerTopData.setValue(j,i+5,0);
 	}
+	/*for(var j=0; j<centerTopData.getNumberOfRows(); j++){
+		centerTopData.setValue(j,2,centerTopData.getValue(j,2)-1);
+		centerTopData.setValue(j,3,centerTopData.getValue(j,3)+1);
+	}*/
 	drawCenterTopChart();
 }
 
@@ -308,8 +312,8 @@ function drawCenterTopChart(){
 		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}},
 		height: 175,  
       	width: 500,
-      	/*series: [{color: 'Black'}],
-      	candlestick:{risingColor: {stroke: "Green"}},*/
+      	/*colors: ["Black"],
+      	candlestick:{risingColor: {stroke: "Green",fill: "Green", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},*/
       	legend: {position: 'none'}
 	};
 
