@@ -124,10 +124,16 @@ function fetchAutocompleteData(year){
 		}
 	});
 	$("#tags").autocomplete({
-       source: availableTags
+       source: availableTags,
+       select: function(event, ui){onPersonSelected(event, ui);}
     });
 }
 
+function onPersonSelected(event,ui){
+	sessionStorage.clear();
+	sessionStorage.setItem(ui.item.label,'selectedPerson');
+	window.location.href = "Personal.html"
+}
 
 function initMap() {
   	var map = new GMap2(document.getElementById('maps'));
