@@ -21,7 +21,7 @@ function infoCallBack(response){
   	formatter.format(infoData, 4); // Apply formatter to salary column
   	var dateformatter = new google.visualization.DateFormat({pattern: "yyyy"});
   	dateformatter.format(infoData,3);
-	infoData.addColumn('number','Rank');
+	infoData.addColumn('string','Rank');
 	for(var i=0; i<infoData.getNumberOfRows();i++){
 		//infoData.setValue(i,5,
 			getRank(i,infoData.getFormattedValue(i,3), infoData.getNumberOfRows(), drawInfoTable);//);
@@ -46,7 +46,7 @@ function getRank(rowId,year, maxRows, callback){
 			var rows = data['rows'];
 			for (var i=0;i<rows.length; i++) {
 				if(rows[i][0]==selectedPerson){
-					infoData.setValue(rowId,5,i+1);// i+1;
+					infoData.setValue(rowId,5,(i+1).toString()+"/"+rows.length.toString());// i+1;
 					tempCount++;
 					break;
 				}
@@ -79,13 +79,14 @@ function drawLineChart(){
     };
     var dtable = new google.visualization.DataTable();
     dtable.addColumn('string','Year');
-    dtable.addColumn('number','Salary');
+    dtable.addColumn('number','Salary(in thousands)');
     dtable.addColumn('number','Rank');
     dtable.addRows(infoData.getNumberOfRows());
     for(var i=0; i<infoData.getNumberOfRows();i++){
     	dtable.setValue(i,0,infoData.getFormattedValue(i,3));
     	dtable.setValue(i,1,infoData.getValue(i,4)/1000);
-    	dtable.setValue(i,2,infoData.getValue(i,5));
+    	var n=infoData.getValue(i,5).split('/');
+    	dtable.setValue(i,2,parseInt(n[0]));
     }
 	var chart = new google.visualization.LineChart(document.getElementById('chart'));
 	chart.draw(dtable,options);
