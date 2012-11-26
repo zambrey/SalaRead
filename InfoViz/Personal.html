@@ -14,16 +14,22 @@
 <script type="text/javascript" src="GThomeScreen.js"></script>
 <script type="text/javascript" src="personalPage.js"></script>
 <script>
+google.load("visualization", "1", {packages:["corechart"]});
 google.load('visualization', '1', {packages: ['table']});
 $(function() {
+	document.getElementById("Name").innerText = sessionStorage.key("selectedPerson");
 	displayInformation(sessionStorage.key("selectedPerson"));
-   //document.getElementById("info").innerText = sessionStorage.key("selectedPerson");
 });
 </script>
 </head>
 <body>
-    <div id="info">
-		
-    </div><!--Container-->
+	<div id="Name"></div>
+	<div>
+		<div id="chart">
+    	</div>
+    	<div id="info">
+    	</div><!--Container-->
+
+	</div>
 </body>
 </html>

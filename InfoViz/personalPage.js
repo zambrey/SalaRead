@@ -61,8 +61,32 @@ function getRank(rowId,year, maxRows, callback){
 function drawInfoTable(){
 	var options = {
 		showRowNumber: true,
-		firstRowNumber: 1
+		firstRowNumber: 1,
 	};
 	infoTable = new google.visualization.Table(document.getElementById('info'));
 	infoTable.draw(infoData, options);
+	drawLineChart();
+}
+
+function drawLineChart(){
+	var options = {
+		title: 'Income over years',
+		vAxis: {title: 'Salary/Rank',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
+		hAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
+		height: 200,
+		width: 400,
+		pointSize: 4
+    };
+    var dtable = new google.visualization.DataTable();
+    dtable.addColumn('string','Year');
+    dtable.addColumn('number','Salary');
+    dtable.addColumn('number','Rank');
+    dtable.addRows(infoData.getNumberOfRows());
+    for(var i=0; i<infoData.getNumberOfRows();i++){
+    	dtable.setValue(i,0,infoData.getFormattedValue(i,3));
+    	dtable.setValue(i,1,infoData.getValue(i,4)/1000);
+    	dtable.setValue(i,2,infoData.getValue(i,5));
+    }
+	var chart = new google.visualization.LineChart(document.getElementById('chart'));
+	chart.draw(dtable,options);
 }
