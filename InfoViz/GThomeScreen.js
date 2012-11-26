@@ -239,6 +239,22 @@ function drawRightChart(){
     		if(centerBottomIndex.length > 0)
     			highlightColumnInCenterBottomData(centerBottomIndex[0]);
     	}
+    	else{
+    		rightChart.setSelection([{'row': null, 'column': null}]);
+    	var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
+  		if(leftIndex.length > 0){
+  			removeHighLightInLeftData(leftIndex[0]);
+		}
+    	var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+  		if(centerTopIndex.length > 0){
+  			removeHighlightInCenterTopData(centerTopIndex[0]);
+  		}
+    	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+    	var deptList = document.getElementById('listDept');
+  		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+		}
+    	}
     }
 	google.visualization.events.addListener(rightChart,'select',tableSelected);
     //google.visualization.events.addListener(rightChart,'onmouseout',tableMouseOut);
