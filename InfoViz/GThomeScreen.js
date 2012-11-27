@@ -4,9 +4,10 @@
 3. Top 10 salaries (Right)
 4. Salary range (Center top) NOT YET IN
 */
-var gatechTableID = "1WcLU5ysaaR5Bo0Ypaz7G4RRogOzCEYb_yt1ARC4";	//gatech information all years
+var gatechTableID = "13MFP5CQRCfZsvbkKnwEIYfcpniM5yFMzCX1Nmcc";	//gatech information all years
 var gatech2011TableID = "1nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s"; //wont need to use this anywhere
 var APIkey = "AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ"; /* need to include this API key at the end of query like "&key=APIkey" (no spaces) if accessing from browser*/
+var gisTableID = "1kbn2QJUnd1dphKGykAimc1BaSriVvLVsEHyxBMA";
 /*Visualization handles*/
 var leftChart;
 var centerTopChart;
@@ -18,7 +19,10 @@ var centerTopData;
 var centerBottomData;
 var rightData;
 var top10Data;
-
+var deptExpenseData;
+var gisData;
+var joinedDataTable;
+var map;
 var currentYear = '2011';
 
 function changeYear(year){
@@ -135,20 +139,6 @@ function onPersonSelected(event,ui){
 	window.location.href = "Personal.html"
 }
 
-function initMap() {
-  	var map = new GMap2(document.getElementById('maps'));
-    /*map.setMapType(G_HYBRID_MAP);*/
-    var center = new GLatLng(33.7791792, -84.3996303);
-    map.setCenter(center, 14);
-  	var marker = new GMarker(center);
-	GEvent.addListener(marker, "click", function() {
-      map.closeInfoWindow();
-    });
-	GEvent.addListener(marker, "click", function() {
-      marker.openInfoWindowHtml("Georgia Institute of Technology");
-    });
-      map.addOverlay(marker);
-}
 
 
 function leftCallBack(response){
@@ -479,4 +469,77 @@ function removeHighlightInCenterBottomData(rowInd){
 	centerBottomData.setValue(rowInd,1,centerBottomData.getValue(rowInd,2));
   	centerBottomData.setValue(rowInd,2,0);
   	drawCenterBottomChart();
+}
+
+function drawMap(){
+	var mapDiv = document.getElementById('maps');
+    map = new google.maps.Map(mapDiv, {
+    	center: new google.maps.LatLng(33.774898, -84.40222),
+    	zoom: 14,
+    	mapTypeId: google.maps.MapTypeId.ROADMAP
+  	});
+}
+
+function initMap() {
+  	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" GROUP BY Department";
+  	deptExpenseQueryText = encodeURIComponent(deptExpenseQueryText);
+  	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + deptExpenseQueryText);
+	query.send(deptExpenseCallBack);
+
+	var gisQueryText = "SELECT Department, Latitude, Longitude FROM "+gisTableID;
+	gisQueryText = encodeURIComponent(gisQueryText);
+	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + gisQueryText);
+	query.send(gisCallBack);
+}
+
+function deptExpenseCallBack(response){
+	if (response.isError()) {
+		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+		return;
+	}
+	deptExpenseData = response.getDataTable();
+}
+
+
+function gisCallBack(response){
+	if (response.isError()) {
+		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+		return;
+	}
+	gisData = response.getDataTable();
+	drawMarkers();
+}
+
+ function drawMarkers(){
+  	var markers  = [];
+  	joinedDataTable = new google.visualization.data.join(gisData, deptExpenseData, 'inner', [[0,0]],[1,2],[1]);
+  	
+  	for(var i=0; i< joinedDataTable.getNumberOfRows(); i++){
+  		
+  		var scale = joinedDataTable.getValue(i,3)/700000;
+  	  	var bubble = {
+  			path: google.maps.SymbolPath.CIRCLE,
+  			fillColor: "gold",
+  			fillOpacity: 0.7,
+  			scale: scale,
+  			strokeColor: "white",
+  			strokeWeight: 3
+		};
+		marker = new google.maps.Marker({
+  			position: new google.maps.LatLng(joinedDataTable.getValue(i,1),joinedDataTable.getValue(i,2)),
+  			icon: bubble,
+  			draggable: false,
+  			map: map
+		});
+		markers.push(marker);
+        marker.set('info', gisData.getValue(i,0));
+		google.maps.event.addListener(marker, 'click', function() {
+	//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
+    		var infoWindow = new google.maps.InfoWindow({
+    			position: this.position,
+    			content: this.get('info')
+  			});
+  	infoWindow.open(map);
+});
+	}
 }
