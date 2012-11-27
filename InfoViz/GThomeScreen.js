@@ -183,10 +183,11 @@ function drawLeftChart(){
   	}
 
   	function barMouseOut(e) {
-  		var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+  		/*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
   			removeHighlightInCenterTopData(centerTopIndex[0]);
-  		}
+  		}*/
+  		removeHighlightInCenterTopData();
     	//leftChart.setSelection([{'row': null, 'column': null}]);
     	//centerTopChart.setSelection([{'row': null, 'column': null}]);
   	}
@@ -245,10 +246,11 @@ function drawRightChart(){
   		if(leftIndex.length > 0){
   			removeHighLightInLeftData(leftIndex[0]);
 		}
-    	var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+    	/*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
   			removeHighlightInCenterTopData(centerTopIndex[0]);
-  		}
+  		}*/
+  		removeHighlightInCenterTopData();
     	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
     	var deptList = document.getElementById('listDept');
   		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
@@ -267,10 +269,11 @@ function tableMouseOut(e){
   		if(leftIndex.length > 0){
   			removeHighLightInLeftData(leftIndex[0]);
 		}
-    	var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+    	/*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
-  			removeHighlightInCenterTopData(centerTopIndex[0]);
-  		}
+  		-	removeHighlightInCenterTopData(centerTopIndex[0]);
+  		}*/
+  		removeHighlightInCenterTopData();
     	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
     	var deptList = document.getElementById('listDept');
   		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
@@ -314,15 +317,15 @@ function centerTopCallBack(response){
 	}
 
 	centerTopData = response.getDataTable();
-	for(var i=0; i<4; i++){
+	/*for(var i=0; i<4; i++){
 		centerTopData.addColumn('number','');
 		for(var j=0; j<centerTopData.getNumberOfRows(); j++)
 			centerTopData.setValue(j,i+5,0);
-	}
-	/*for(var j=0; j<centerTopData.getNumberOfRows(); j++){
+	}*/
+	for(var j=0; j<centerTopData.getNumberOfRows(); j++){
 		centerTopData.setValue(j,2,centerTopData.getValue(j,2)-1);
 		centerTopData.setValue(j,3,centerTopData.getValue(j,3)+1);
-	}*/
+	}
 	drawCenterTopChart();
 }
 
@@ -334,8 +337,8 @@ function drawCenterTopChart(){
 		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}},
 		height: 175,  
       	width: 500,
-      	/*colors: ["Black"],
-      	candlestick:{risingColor: {stroke: "Green",fill: "Green", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},*/
+      	colors: ["Black"],
+      	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}
 	};
 
@@ -407,7 +410,7 @@ function removeHighLightInLeftData(rowInd){
 }
 
 function highlightSeriesInCenterTopData(rowInd){
-	var tempData = new google.visualization.DataTable();
+	/*var tempData = new google.visualization.DataTable();
 	tempData.addRows(centerTopData.getNumberOfRows());
 	tempData.addColumn('string','Title');
 	for(var i=0; i<8; i++)
@@ -427,15 +430,25 @@ function highlightSeriesInCenterTopData(rowInd){
 			}
 		}
 	}
-	centerTopData = tempData;
+	centerTopData = tempData;*/
+	var temp = centerTopData.getValue(rowInd,2);
+	centerTopData.setValue(rowInd,2,centerTopData.getValue(rowInd,3));
+	centerTopData.setValue(rowInd,3,temp);
 	drawCenterTopChart();	
 }
 
-function removeHighlightInCenterTopData(rowInd){
-	for(var j=0; j<4; j++){
+function removeHighlightInCenterTopData(){
+	for(var i=0; i<centerTopData.getNumberOfRows(); i++){
+		if(centerTopData.getValue(i,2) > centerTopData.getValue(i,3))
+			break;
+	}
+	var temp = centerTopData.getValue(i,2);
+	centerTopData.setValue(i,2,centerTopData.getValue(i,3));
+	centerTopData.setValue(i,3,temp);
+	/*for(var j=0; j<4; j++){
   		centerTopData.setValue(rowInd,j+1,centerTopData.getValue(rowInd,j+5));	
   		centerTopData.setValue(rowInd,j+5,0);
-  	}
+  	}*/
   	drawCenterTopChart();
 }
 

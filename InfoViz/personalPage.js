@@ -80,13 +80,14 @@ function drawLineChart(){
     var dtable = new google.visualization.DataTable();
     dtable.addColumn('string','Year');
     dtable.addColumn('number','Salary(in thousands)');
-    dtable.addColumn('number','Rank');
+    dtable.addColumn('number','Percentile');
     dtable.addRows(infoData.getNumberOfRows());
     for(var i=0; i<infoData.getNumberOfRows();i++){
     	dtable.setValue(i,0,infoData.getFormattedValue(i,3));
     	dtable.setValue(i,1,infoData.getValue(i,4)/1000);
     	var n=infoData.getValue(i,5).split('/');
-    	dtable.setValue(i,2,parseInt(n[0]));
+    	var val = (parseInt(n[1])-parseInt(n[0]))*100/parseInt(n[1]);
+    	dtable.setValue(i,2,val);
     }
 	var chart = new google.visualization.LineChart(document.getElementById('chart'));
 	chart.draw(dtable,options);
