@@ -35,8 +35,10 @@
 <body>
     <div id="container">
 		<div id="Map" >
+			<div id="left">	
+			</div> <!--left-->
 			<div id="maps">
-			</div>
+			</div><!--maps-->
 					<div id="navigation">
 				<div id="search">
 					
@@ -55,9 +57,7 @@
 		
 		 <div id="Data">
 		 <div id="stats">
-			<div id="left">
-				
-			</div> <!--left-->
+
 			<div id="center">
 				<div id="top">
 				</div><!--top-->
@@ -73,22 +73,22 @@
 			<div id="year">
 				<span class="years">
 
-				YEAR
+				By Year ->
 				</span>
 				<span class="years">
-				<button type="button" onclick="changeYear('2008');">2008</button>
+				<a  class="button2008" onclick="changeYear('2008'); return false;">2008</a>
 				</span>
 				<span class="years">
-				<button type="button" onclick="changeYear('2009');">2009</button>
+				<a class="button2009"  onclick="changeYear('2009');">2009</a>
 				</span>	
 				<span class="years">
-				<button type="button" onclick="changeYear('2010');">2010</button>
+				<a class="button2010"  onclick="changeYear('2010');">2010</a>
 				</span>
 				<span class="years">
-				<button type="button" onclick="changeYear('2011');">2011</button>
+				<a class="button2011" onclick="changeYear('2011');">2011</a>
 				</span>
 				<span class="years">
-				All
+				
 				</span>
 			</div> <!--year-->
 		 </div><!--Data-->

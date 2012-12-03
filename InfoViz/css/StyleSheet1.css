@@ -8,27 +8,50 @@ html {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
 }
 
-a {
-  color: #0088cc;
+
+a.button2008:hover, a.button2009:hover, a.button2010:hover{
+	color: rgba(0,0,0,0.6);
   text-decoration: none;
+  background-image: url("hover.png");
 }
 
-a:hover {
-  color: #005580;
-  text-decoration: underline;
+
+a.button2008:hover, a.button2009:hover, a.button2010:hover, a.button2011:hover{
+
+  cursor:pointer;
+ 
+}
+
+a.button2008, a.button2009, a.button2010 {
+	color: rgba(0,0,0,0.6);
+  	text-decoration: none;
+	background-image: url("button.png");
+	padding: 4px 57px 3px;
+}
+
+ 
+ a.button2011
+ {
+	color: white;
+  	text-decoration: none;
+	font-size: 18px;
+	font-weight: bold;
+	text-align :center;
+	background-image: url("button_state.png");
+	padding: 4px 57px 3px;
 }
 
 div #container{
     width:960px;
     margin : 0 auto 0;
-	height:768px;
+	height:900px;
 }
 
 div #Map
@@ -39,13 +62,13 @@ div #Map
 	}
 div #maps 
 {
-	width: 100%;
+	width: 75%;
 	height: 87.5%;
 	display: block;
 	}	
 div #Data
 {
-	height: 384px;
+	height: 516px;
 	width: 960px;
 	margin : 0 auto 0;
 }
@@ -87,11 +110,11 @@ div #left
 {
 	width: 25%;
 	float: left;
-	height:100%;
+	height:87.5%;
 }
 div #center
 {
-	width: 50%;
+	width: 75%;
 	float :left;
 	height:100%;
 }
@@ -99,6 +122,7 @@ div #center
 div #top
 {
 height:50%;
+width:100%;
 }
 
 div #bottom
@@ -130,11 +154,9 @@ span.years
 {
 	width:156px;
 	float:left;
-	border-style: solid;
-	border-color: grey;
-	border-width: 2px;
 	height: 100%;
 	text-align:center;
+	font-size: 18px;
 }
 
 button

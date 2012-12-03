@@ -29,6 +29,72 @@ function changeYear(year){
 	currentYear = year;
 	drawVisualizations(year);
 	browsingQueries(year);
+	 	$("a.button2008, a.button2009, a.button2010, a.button2011").css({
+			'color': 'rgba(0,0,0,0.6)',
+  			'text-decoration': 'none',
+			'font-size': '18px',
+			'font-weight': 'bold',
+			'text-align' :'center',
+			'background-image': 'url("button.png")',
+			'padding': '4px 57px 3px'
+		});
+		for(var i=2008; i<=2011; i++)
+		{
+			//alert("i" + i);
+			//alert("year" + year)
+			if(i != year)
+			{
+				//alert("button" + i);
+				$("a.button" + i).hover(function(){
+					$(this).css({
+					'color': 'rgba(0,0,0,0.6)',
+  					'text-decoration': 'none',
+					'font-size': '18px',
+					'font-weight': 'bold',
+					'text-align' :'center',
+					'background-image': 'url("hover.png")',
+					'padding': '4px 57px 3px'
+					});
+				},
+				function()
+					{
+					$(this).css({
+					'color': 'rgba(0,0,0,0.6)',
+  					'text-decoration': 'none',
+					'font-size': '18px',
+					'font-weight': 'bold',
+					'text-align' :'center',
+					'background-image': 'url("button.png")',
+					'padding': '4px 57px 3px'
+					});
+
+				});
+			}	
+			else
+			{		
+				$("a.button" + i).hover(function(){
+					$(this).css({                
+					'color': 'white',
+  					'text-decoration': 'none',
+					'font-size': '18px',
+					'font-weight': 'bold',
+					'text-align' :'center',
+					'background-image': 'url("button_state.png")',
+					'padding': '4px 57px 3px'                        
+					});	
+				});
+			}
+		}
+		
+		$("a.button"+year).css({                
+			'color': 'white',
+  			'text-decoration': 'none',
+			'font-size': '18px',
+			'font-weight': 'bold',
+			'text-align' :'center',
+			'background-image': 'url("button_state.png")',
+			'padding': '4px 57px 3px'                        
+});
 }
 
 function drawVisualizations(year){
@@ -156,7 +222,7 @@ function drawLeftChart(){
         vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
 		hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
 		isStacked: true,
-		height: 350,
+		height: 320,
 		legend: {position: 'none'}
     };
 	leftChart = new google.visualization.BarChart(document.getElementById('left'));
@@ -289,10 +355,11 @@ function drawCenterBottomChart(){
 	var options = {
 		title: 'Average Salary by Department',
 		vAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Department',  titleTextStyle: {color: 'red'}},
+		hAxis: {title: 'Department',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:4},
 		isStacked: true,
-		height: 175,
-		width: 500,
+		height: 238,
+		width: 800,
+		fontSize : 10,
 		legend: {position: 'none'}
     };
 
@@ -324,9 +391,10 @@ function drawCenterTopChart(){
 	var options = {
 		title: 'Salary Range By Title',
 		vAxis: {title: 'Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}},
-		height: 175,  
-      	width: 500,
+		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:3},
+		height: 238,  
+		fontSize: 10,
+      	width: 800,
       	colors: ["Black"],
       	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}
