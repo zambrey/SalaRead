@@ -95,7 +95,7 @@ function drawMarkers(){
   			map: map
 		});
 		markers.push(marker);
-        marker.set('info', gisData.getValue(i,0));
+        marker.set('info', "<p>"+ gisData.getValue(i,0)+" <br/> Total Expenditure: $"+ addCommas(parseFloat(joinedDataTable.getValue(i,3).toFixed(2)))+"</p>");
 		google.maps.event.addListener(marker, 'click', 
 			function() {
 				//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
