@@ -8,13 +8,21 @@ html {
 
 body {
   margin: 0;
-  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
 }
 
+.ui-widget {
+font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+select{
+	font-family:Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	margin : 2px 0px 2px 0px;
+}
 
 a.button2008:hover, a.button2009:hover, a.button2010:hover{
 	color: rgba(0,0,0,0.6);
@@ -73,11 +81,12 @@ div #tags
 	float: left;
 	display: block;
 }
+
 div #slider-range
 {
 	float: left;
 	display: block;
-	width: 296px;
+	width: 290px;
 	margin-left: 10px;
 }
 
@@ -91,7 +100,6 @@ p.topTen
 {
 text-align: center;
 font-size: 16px;
-font-weight: bold;
 background-color: #FAFAFA;
 margin: 0px 0px 0px 0px;
 padding: 10px 10px 10px 10px;
@@ -131,14 +139,14 @@ p.navigation
 
 div #search
 { 
-	width : 50%;
+	width : 49%;
 	float: left;
 	height:75%;
 }
 
 div #browse
 { 
-	width : 50%;
+	width : 51%;
 	float: left;
 	height:75%;
 }
