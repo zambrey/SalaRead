@@ -116,55 +116,6 @@ function populateFiltersData(year){
 }
 
 
-/*function dataByDepartment(dept){
-	//This is called when a department is selected
-	var deptList = document.getElementById('listDept');
-	if(deptList.selectedIndex == 0){
-		drawCharts(selectedYear);
-		populateFiltersData(selectedYear);
-	}
-	else{
-		deptRestrictedQueries(dept);
-		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
-  		if(centerBottomIndex.length > 0){
-  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
-  		}
-		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
-    	if(centerBottomIndex.length > 0)
-    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	
-	}
-}
-
-function dataByTitle(title){
-	//This is called when a department is selected
-	var titleList = document.getElementById('listTitle');
-	if(titleList.selectedIndex == 0){
-		drawCharts(selectedYear);
-		populateFiltersData(selectedYear);
-	}
-	else{
-	}
-}
-
-function deptRestrictedQueries(dept){
-	var queryText1 = "SELECT Title, AVERAGE(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY AVERAGE(Salary) DESC";
-	queryText1 = encodeURIComponent(queryText1);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
-	query.send(leftCallBack);
-
-	//Top 10
-	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' ORDER BY Salary DESC LIMIT 10";
-	queryText3 = encodeURIComponent(queryText3);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
-	query.send(rightCallBack);
-
-	//Sal range by title
-	var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY Title ASC";
-	queryText4 = encodeURIComponent(queryText4);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
-	query.send(centerTopCallBack);
-}*/
-
 function changeTitle(title){
 	var titleList = document.getElementById('listTitle');
 	if(titleList.selectedIndex == 0){

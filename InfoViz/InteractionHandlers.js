@@ -119,27 +119,6 @@ function removeHighLightInLeftData(rowInd){
 }
 
 function highlightSeriesInCenterTopData(rowInd){
-  /*var tempData = new google.visualization.DataTable();
-  tempData.addRows(centerTopData.getNumberOfRows());
-  tempData.addColumn('string','Title');
-  for(var i=0; i<8; i++)
-    tempData.addColumn('number','');
-  for(var i=0; i<centerTopData.getNumberOfRows(); i++){
-    tempData.setValue(i,0,centerTopData.getValue(i,0));
-    if(i==rowInd){
-      for(var j=0; j<4; j++){
-        tempData.setValue(i,j+1,0);
-        tempData.setValue(i,j+5,centerTopData.getValue(i,j+1)); 
-      }
-    }
-    else{
-      for(var j=0; j<4; j++){
-        tempData.setValue(i,j+1,centerTopData.getValue(i,j+1));
-        tempData.setValue(i,j+5,0);
-      }
-    }
-  }
-  centerTopData = tempData;*/
   var temp = centerTopData.getValue(rowInd,2);
   centerTopData.setValue(rowInd,2,centerTopData.getValue(rowInd,3));
   centerTopData.setValue(rowInd,3,temp);
