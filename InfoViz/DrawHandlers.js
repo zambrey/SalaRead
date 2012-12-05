@@ -3,6 +3,7 @@ var leftChart;
 var centerTopChart;
 var centerBottomChart;
 var rightChart;
+var infoWindow=null;
 
 function drawLeftChart(){
 	var options = {
@@ -95,14 +96,16 @@ function drawMarkers(){
 		});
 		markers.push(marker);
         marker.set('info', gisData.getValue(i,0));
-		google.maps.event.addListener(marker, 'click', function() {
-	//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
-    		var infoWindow = new google.maps.InfoWindow({
-    			position: this.position,
-    			content: this.get('info')
-  			});
-  	infoWindow.open(map);
-});
+		google.maps.event.addListener(marker, 'click', 
+			function() {
+				//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
+    			if(infoWindow == null)
+    				infoWindow = new google.maps.InfoWindow({position: this.position,content: this.get('info')});
+    			infoWindow.setPosition(this.position);
+    			infoWindow.setContent(this.get('info'));
+				infoWindow.open(map);
+			}
+		);
 	}
 }
 
