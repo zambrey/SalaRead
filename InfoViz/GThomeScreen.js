@@ -4,15 +4,19 @@
 3. Top 10 salaries (Right)
 4. Salary range (Center top) NOT YET IN
 */
+
+/*Data source IDs*/
 var gatechTableID = "13MFP5CQRCfZsvbkKnwEIYfcpniM5yFMzCX1Nmcc";	//gatech information all years
 var gatech2011TableID = "1nbznINBBG8JFbhs7b7WDC8ExF9SdlmvBaAxhB6s"; //wont need to use this anywhere
 var APIkey = "AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ"; /* need to include this API key at the end of query like "&key=APIkey" (no spaces) if accessing from browser*/
 var gisTableID = "1kbn2QJUnd1dphKGykAimc1BaSriVvLVsEHyxBMA";
+
 /*Visualization handles*/
 var leftChart;
 var centerTopChart;
 var centerBottomChart;
 var rightChart;
+
 /*Data holders*/
 var leftData;
 var centerTopData;
@@ -21,9 +25,18 @@ var rightData;
 var top10Data;
 var deptExpenseData;
 var gisData;
+
+/*Miscellaneous*/
 var joinedDataTable;
 var map;
-var currentYear = '2011';
+
+/*Filters*/
+var selectedYear = '2011';
+var salaryRange = new Array();
+var selectedTitle;
+var selectedCollege;
+var selectedSchool;
+var selectedGender;
 
 function changeYear(year){
 	currentYear = year;
@@ -131,6 +144,11 @@ function browsingQueries(year){
 	var queryText6 = "SELECT%20Department%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateDeptCallBack);
+
+	/*Populate browse title*/
+	queryText6 = "SELECT%20Title%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
+	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
+	query.send(populateTitleCallBack);
 }
 
 function dataByDepartment(dept){
@@ -151,6 +169,27 @@ function dataByDepartment(dept){
 		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
     	if(centerBottomIndex.length > 0)
     		highlightColumnInCenterBottomData(centerBottomIndex[0]);	
+	}
+}
+
+function dataByTitle(title){
+	/*This is called when a department is selected*/
+	var titleList = document.getElementById('listTitle');
+	if(titleList.selectedIndex == 0){
+		drawVisualizations(currentYear);
+		browsingQueries(currentYear);
+	}
+	else{
+		/*titleRestrictedQueries(dept);
+
+		//Highlight selected department in centerBottomChart
+		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+  		if(centerBottomIndex.length > 0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+  		}
+		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
+    	if(centerBottomIndex.length > 0)
+    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	*/
 	}
 }
 
@@ -436,6 +475,19 @@ function populateDeptCallBack(response){
 	var data = response.getDataTable();
 	var availableValues = data.getDistinctValues(0);
 	var combo = document.getElementById('listDept');
+	for(var i=0; i<availableValues.length; i++)
+		combo.options[i+1]=new Option(availableValues[i],availableValues[i]);
+}
+
+function populateTitleCallBack(response){
+	if (response.isError()) {
+		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+		return;
+	}
+
+	var data = response.getDataTable();
+	var availableValues = data.getDistinctValues(0);
+	var combo = document.getElementById('listTitle');
 	for(var i=0; i<availableValues.length; i++)
 		combo.options[i+1]=new Option(availableValues[i],availableValues[i]);
 }

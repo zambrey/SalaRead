@@ -45,11 +45,19 @@
 					<label for="tags">Search: </label>
 					
 					<input id="tags" style="width:80%;height: 50%;margin-top: 8px;"/>
-					
+					<div id="slider">
+					$ 0 <input id="slide" type="range"
+ 					min="0" max="900000" step="10000" value="100"
+ 					onchange="updateSlider(this.value)" />
+ 					$ 900,000
+				</div>
 				</div><!--search-->
 				<div id="browse">
 				<select id='listDept' onchange="dataByDepartment(this.options[this.selectedIndex].value);">
 					<option value=''>&lt;Browse department&gt;</option>
+				</select>
+				<select id='listTitle' onchange="dataByTitle(this.options[this.selectedIndex].value);">
+					<option value=''>&lt;Browse title&gt;</option>
 				</select>
 				</div><!--browse-->
 			</div><!--navigation-->
@@ -94,4 +102,9 @@
 		 </div><!--Data-->
     </div><!--Container-->
 </body>
+<hr>
+<footer>
+CS7450 SalaRead - Osborne, Noronha, Zambre, Zaveri <br>
+Data Source: <a href="http://www.open.georgia.gov/">open.georgia.gov</a> 
+</footer>
 </html>

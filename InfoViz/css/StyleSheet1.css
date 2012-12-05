@@ -169,3 +169,13 @@ button
 {
 	width: 10%;
 }
+
+footer {
+  margin: 0;
+  text-align:center;
+  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
