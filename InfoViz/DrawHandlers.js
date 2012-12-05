@@ -4,6 +4,7 @@ var centerTopChart;
 var centerBottomChart;
 var rightChart;
 var infoWindow=null;
+var markers  = [];
 
 function drawLeftChart(){
 	var options = {
@@ -74,7 +75,6 @@ function drawCenterTopChart(){
 }
 
 function drawMarkers(){
-  	var markers  = [];
   	joinedDataTable = new google.visualization.data.join(gisData, deptExpenseData, 'inner', [[0,0]],[1,2],[1]);
   	
   	for(var i=0; i< joinedDataTable.getNumberOfRows(); i++){
@@ -95,15 +95,32 @@ function drawMarkers(){
   			map: map
 		});
 		markers.push(marker);
+		marker.set('scale',scale);
         marker.set('info', "<p>"+ gisData.getValue(i,0)+" <br/> Total Expenditure: $"+ addCommas(parseFloat(joinedDataTable.getValue(i,3).toFixed(2)))+"</p>");
 		google.maps.event.addListener(marker, 'click', 
 			function() {
 				//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
+				removeHighlightFromMapMarker();
+    			/*if(this.getIcon().fillColor=="red"){
+    				infoWindow.close();
+    				var bubble = {
+  						path: google.maps.SymbolPath.CIRCLE,
+  						fillColor: "gold",
+  						fillOpacity: 0.7,
+  						scale: this.get('scale'),
+  						strokeColor: "white",
+  						strokeWeight: 3
+					};
+					this.setIcon(bubble);
+    				return;
+    			}*/
     			if(infoWindow == null)
     				infoWindow = new google.maps.InfoWindow({position: this.position,content: this.get('info')});
     			infoWindow.setPosition(this.position);
     			infoWindow.setContent(this.get('info'));
 				infoWindow.open(map);
+				//this.getIcon().fillColor = "red";
+				highlightMapMarker(this);
 			}
 		);
 	}

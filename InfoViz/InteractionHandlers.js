@@ -170,3 +170,32 @@ function removeHighlightInCenterBottomData(rowInd){
     centerBottomData.setValue(rowInd,2,0);
     drawCenterBottomChart();
 }
+
+function removeHighlightFromMapMarker(){
+  for(var i=0; i<markers.length; i++){
+    if(markers[i].getIcon().fillColor == "red"){
+      var bubble = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: "gold",
+        fillOpacity: 0.7,
+        scale: markers[i].get('scale'),
+        strokeColor: "white",
+        strokeWeight: 3
+      };
+      markers[i].setIcon(bubble);      
+      break;
+    }
+  }
+}
+
+function highlightMapMarker(marker){
+var selectedBubble = {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: "red",
+            fillOpacity: 0.7,
+            scale: marker.get('scale'),
+            strokeColor: "white",
+            strokeWeight: 3
+        };
+        marker.setIcon(selectedBubble);
+}
