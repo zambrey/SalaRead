@@ -27,16 +27,18 @@ var salaryMin = 10000;
 
 function init(){
 	drawMap();
-    initMap();
+    initMapExpenseValues();
 	initSlider();
 }
 
-function initMap() {
+function initMapExpenseValues() {
   	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" GROUP BY Department";
   	deptExpenseQueryText = encodeURIComponent(deptExpenseQueryText);
   	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + deptExpenseQueryText);
 	query.send(deptExpenseCallBack);
+}
 
+function initMapLocations(){
 	var gisQueryText = "SELECT Department, Latitude, Longitude FROM "+gisTableID;
 	gisQueryText = encodeURIComponent(gisQueryText);
 	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + gisQueryText);

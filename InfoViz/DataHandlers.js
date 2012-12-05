@@ -73,6 +73,7 @@ function deptExpenseCallBack(response){
 		return;
 	}
 	deptExpenseData = response.getDataTable();
+	initMapLocations();
 }
 
 
