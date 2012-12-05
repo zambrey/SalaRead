@@ -10,19 +10,23 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
- <script src="http://maps.google.com/maps?file=api&amp;v=3&amp;key=AIzaSyCH8bkloPQZn7A_TYUFMdp9a6HdyNqvhqU&sensor=true_or_false" type="text/javascript"></script>
- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=en-US"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=3&amp;key=AIzaSyCH8bkloPQZn7A_TYUFMdp9a6HdyNqvhqU&sensor=true_or_false" type="text/javascript"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=en-US"></script>
 <script type="text/javascript" src="GThomeScreen.js"></script>
+<script type="text/javascript" src="DataHandlers.js"></script>
+<script type="text/javascript" src="InteractionHandlers.js"></script>
+<script type="text/javascript" src="DrawHandlers.js"></script>
+
  <script>
  var year="2011";
  google.load('visualization', '1', {packages: ['corechart']});
  google.load('visualization', '1', {packages: ['table']});
 	google.setOnLoadCallback(function() {
-    	drawVisualizations("2011");
+    	drawCharts("2011");
 	});
 	//google.setOnLoadCallback(drawVisualizations);
 	google.setOnLoadCallback(function() {
-    	browsingQueries("2011");
+    	populateFiltersData("2011");
 
 	});
 	$(function() {
