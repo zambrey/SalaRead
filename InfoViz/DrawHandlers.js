@@ -23,8 +23,8 @@ function drawLeftChart(){
 
 function drawRightChart(){
 	var options = {
-		height: 350,
-		width: 250,
+		//height: 370,
+		width: 239,
 		showRowNumber: true,
 		firstRowNumber: 1
 	};

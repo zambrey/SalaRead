@@ -60,7 +60,7 @@
 					<div id="slider-range">
 					<p>
 						<label id="valueSlider"></label>
-						<input type="text" id="amount" "/>
+						<input type="text" id="amount" style="display:none"/>
 						
 					</p>
 					</div><!--slider-range-->
@@ -74,8 +74,18 @@
 					</select>
 				</div><!--browse-->
 			</div><!--navigation-->
-			<div id="left">	
-			</div> <!--left-->
+			<div id="rightOutter">
+			<p class="topTen">
+			Top Ten Salaries
+			</p>
+			
+			<div id="right" onmouseout="tableMouseOut();" >
+				
+			</div> <!--right-->
+			<div >
+			<p style="background-color: #FAFAFA; margin: 0px 0px 0px 0px; padding: 25px 10px 10px 10px" />
+			</div>
+			</div>
 			<div id="maps">
 			</div><!--maps-->
 
@@ -92,11 +102,10 @@
 				</div><!--bottom-->
 			</div> <!--center-->
 			
-			<div id="right" onmouseout="tableMouseOut();" >
-				
-			</div> <!--right-->
-			</div><!--stats-->
 			
+			</div><!--stats-->
+			<div id="left">	
+			</div> <!--left-->
 		 </div><!--Data-->
     </div><!--Container-->
 </body>

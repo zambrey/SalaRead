@@ -77,8 +77,24 @@ div #slider-range
 {
 	float: left;
 	display: block;
-	width: 200px;
+	width: 296px;
 	margin-left: 10px;
+}
+
+ 
+label #valueSlider
+{
+	padding-left:30px;
+}
+
+p.topTen
+{
+text-align: center;
+font-size: 16px;
+font-weight: bold;
+background-color: #FAFAFA;
+margin: 0px 0px 0px 0px;
+padding: 10px 10px 10px 10px;
 }
 
 div #maps 
@@ -115,14 +131,14 @@ p.navigation
 
 div #search
 { 
-	width : 40%;
+	width : 50%;
 	float: left;
 	height:75%;
 }
 
 div #browse
 { 
-	width : 60%;
+	width : 50%;
 	float: left;
 	height:75%;
 }
@@ -164,7 +180,7 @@ div #bottom
 height:50%;
 }
 
-div #right
+div #rightOutter
 {
 	height:100%;
 	width: 25%;

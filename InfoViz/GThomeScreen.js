@@ -64,7 +64,7 @@ function initSlider() {
 		  		salaryMin = $( "#slider-range" ).slider( "values", 0 );
 				salaryMax = $( "#slider-range" ).slider( "values", 1 );
 		var valLabel = document.getElementById('valueSlider');
-		valLabel.innerHTML = salaryMin + ' - ' +salaryMax;
+		valLabel.innerHTML = 'Salary Range:' + salaryMin + ' - ' +salaryMax;
 }
 
 function drawCharts(){
@@ -172,10 +172,10 @@ function changeYear(year){
 			'color': 'rgba(0,0,0,0.6)',
   			'text-decoration': 'none',
 			'font-size': '18px',
-			'font-weight': 'bold',
+			'font-weight': 'normal',
 			'text-align' :'center',
 			'background-image': 'url("button.png")',
-			'padding': '4px 57px 3px'
+			//'padding': '4px 57px 3px'
 		});
 		for(var i=2008; i<=2011; i++)
 		{
@@ -189,10 +189,10 @@ function changeYear(year){
 					'color': 'rgba(0,0,0,0.6)',
   					'text-decoration': 'none',
 					'font-size': '18px',
-					'font-weight': 'bold',
+					'font-weight': 'normal',
 					'text-align' :'center',
 					'background-image': 'url("hover.png")',
-					'padding': '4px 57px 3px'
+					//'padding': '4px 57px 3px'
 					});
 				},
 				function()
@@ -201,10 +201,10 @@ function changeYear(year){
 					'color': 'rgba(0,0,0,0.6)',
   					'text-decoration': 'none',
 					'font-size': '18px',
-					'font-weight': 'bold',
+					'font-weight': 'normal',
 					'text-align' :'center',
 					'background-image': 'url("button.png")',
-					'padding': '4px 57px 3px'
+					//'padding': '4px 57px 3px'
 					});
 
 				});
@@ -216,10 +216,10 @@ function changeYear(year){
 					'color': 'white',
   					'text-decoration': 'none',
 					'font-size': '18px',
-					'font-weight': 'bold',
+					'font-weight': 'normal',
 					'text-align' :'center',
 					'background-image': 'url("button_state.png")',
-					'padding': '4px 57px 3px'                        
+					//'padding': '4px 57px 3px'                        
 					});	
 				});
 			}
