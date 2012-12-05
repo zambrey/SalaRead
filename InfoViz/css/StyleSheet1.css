@@ -56,7 +56,7 @@ div #container{
 
 div #Map
 {
-	height: 384px !important;
+	height: 450px !important;
 	width: 960px;
 	margin : 0 auto 0;
 	}
@@ -74,26 +74,27 @@ div #slider-range
 {
 	float: left;
 	display: block;
-	width: 240px;
-	margin-left: 20px;
+	width: 200px;
+	margin-left: 10px;
 }
+
 div #maps 
 {
 	width: 75%;
-	height: 87.5%;
+	height: 82%;
 	display: block;
 	}	
 div #Data
 {
-	height: 516px;
+	height: 450px;
 	width: 960px;
 	margin : 0 auto 0;
 }
 div #navigation
 {
 	width: 100%;
-	height: 12.5%;
-	
+	height: 10%;
+	background-color: lightGoldenrodYellow;
 }
 p.navigation
 {
@@ -103,20 +104,30 @@ p.navigation
 	height: 100%;
 	margin: 0px 5px 0px 5px;
 	text-align:center;
+	
 }
 
 div #search
 { 
-	width : 50%;
+	width : 40%;
 	float: left;
-	height:100%;
+	height:75%;
 }
 
 div #browse
 { 
-	width : 50%;
+	width : 60%;
 	float: left;
-	height:100%;
+	height:75%;
+}
+
+select #listDept
+{
+	float:left;
+}
+select #listTitle
+{
+	float:left;
 }
 
 div #stats
@@ -155,8 +166,14 @@ div #right
 }
 div #year
 {	
-	height : 6.25%;
-	
+	height : 7%;
+	border-bottom: 3px;
+	border-style: solid;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-color: #313131;
+	background-color: lightGoldenrodYellow;
 }
 p.data
 {
@@ -174,6 +191,7 @@ span.years
 	height: 100%;
 	text-align:center;
 	font-size: 18px;
+	margin-top: 10px;
 }
 
 button
