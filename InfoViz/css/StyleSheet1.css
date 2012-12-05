@@ -60,6 +60,23 @@ div #Map
 	width: 960px;
 	margin : 0 auto 0;
 	}
+	
+label #lookFor{
+	float: left;
+	display: block;
+}
+div #tags
+{
+	float: left;
+	display: block;
+}
+div #slider-range
+{
+	float: left;
+	display: block;
+	width: 240px;
+	margin-left: 20px;
+}
 div #maps 
 {
 	width: 75%;

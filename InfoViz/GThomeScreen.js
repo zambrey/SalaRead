@@ -37,6 +37,8 @@ var selectedTitle;
 var selectedCollege;
 var selectedSchool;
 var selectedGender;
+var sliderMax;
+var sliderMin;
 
 function changeYear(year){
 	currentYear = year;
@@ -150,6 +152,20 @@ function browsingQueries(year){
 	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateTitleCallBack);
 }
+
+function initSlider() {
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [ 75, 300 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    }
 
 function dataByDepartment(dept){
 	/*This is called when a department is selected*/
