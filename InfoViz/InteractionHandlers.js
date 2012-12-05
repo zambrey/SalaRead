@@ -151,6 +151,8 @@ function removeHighlightInCenterTopData(){
     if(centerTopData.getValue(i,2) > centerTopData.getValue(i,3))
       break;
   }
+  if(i==centerTopData.getNumberOfRows())
+    return;
   var temp = centerTopData.getValue(i,2);
   centerTopData.setValue(i,2,centerTopData.getValue(i,3));
   centerTopData.setValue(i,3,temp);

@@ -20,12 +20,197 @@ var map;
 /*Filters*/
 var selectedYear = '2011';
 var salaryRange = new Array();
-var selectedTitle;
-var selectedCollege;
-var selectedSchool;
-var selectedGender;
-var sliderMax;
-var sliderMin;
+var selectedTitle = "";
+var selectedDepartment = "";
+var salaryMax = 900000;
+var salaryMin = 10000; 
+
+function init(){
+	drawMap();
+    initMap();
+	initSlider();
+}
+
+function initMap() {
+  	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" GROUP BY Department";
+  	deptExpenseQueryText = encodeURIComponent(deptExpenseQueryText);
+  	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + deptExpenseQueryText);
+	query.send(deptExpenseCallBack);
+
+	var gisQueryText = "SELECT Department, Latitude, Longitude FROM "+gisTableID;
+	gisQueryText = encodeURIComponent(gisQueryText);
+	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + gisQueryText);
+	query.send(gisCallBack);
+}
+
+function initSlider() {
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0,
+            max: 900000,
+            values: [ 10000, 850000 ],
+            slide: function( event, ui ) {
+                //$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				salaryMin = $( "#slider-range" ).slider( "values", 0 );
+				salaryMax = $( "#slider-range" ).slider( "values", 1 );
+				var valLabel = document.getElementById('valueSlider');
+				valLabel.innerHTML = salaryMin + ' - ' +salaryMax;
+				drawCharts();
+            }
+        });
+        //$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+          //" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		  		salaryMin = $( "#slider-range" ).slider( "values", 0 );
+				salaryMax = $( "#slider-range" ).slider( "values", 1 );
+		var valLabel = document.getElementById('valueSlider');
+		valLabel.innerHTML = salaryMin + ' - ' +salaryMax;
+}
+
+function drawCharts(){
+	/*Avg sal by title*/
+	if(selectedTitle == ""){
+		var queryText1 = "SELECT Title, AVERAGE(Salary) FROM "+gatechTableID+" WHERE "+ buildWhereClause() + " GROUP BY Title ORDER BY AVERAGE(Salary) DESC";
+		queryText1 = encodeURIComponent(queryText1);
+		var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
+		query.send(leftCallBack);
+	}
+
+	/*Avg sal by dept*/
+	if(selectedDepartment==""){
+		var queryText2 = "SELECT Department, AVERAGE(Salary) FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" GROUP BY Department ORDER BY AVERAGE(Salary) DESC";
+		queryText2 = encodeURIComponent(queryText2);
+		var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText2);
+		query.send(centerBottomCallBack);
+	}
+
+	/*Top 10*/
+	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" ORDER BY Salary DESC LIMIT 10";
+	queryText3 = encodeURIComponent(queryText3);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
+	query.send(rightCallBack);
+
+	/*Sal range by title*/
+	if(selectedTitle==""){
+		var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" GROUP BY Title ORDER BY Title ASC";
+		queryText4 = encodeURIComponent(queryText4);
+		var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
+		query.send(centerTopCallBack);
+	}
+}
+
+
+function populateFiltersData(year){
+	fetchAutocompleteData(year);
+
+	/*Populate browse dept*/
+	var queryText6 = "SELECT Department FROM "+gatechTableID+" WHERE Year="+year +" GROUP BY Department";
+	queryText6 = encodeURIComponent(queryText6);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
+	query.send(populateDeptCallBack);
+
+	/*Populate browse title*/
+	queryText6 = "SELECT Title FROM "+gatechTableID+" WHERE Year="+year +" GROUP BY Title";
+	queryText6 = encodeURIComponent(queryText6);
+	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
+	query.send(populateTitleCallBack);
+}
+
+
+/*function dataByDepartment(dept){
+	//This is called when a department is selected
+	var deptList = document.getElementById('listDept');
+	if(deptList.selectedIndex == 0){
+		drawCharts(selectedYear);
+		populateFiltersData(selectedYear);
+	}
+	else{
+		deptRestrictedQueries(dept);
+		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+  		if(centerBottomIndex.length > 0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+  		}
+		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
+    	if(centerBottomIndex.length > 0)
+    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	
+	}
+}
+
+function dataByTitle(title){
+	//This is called when a department is selected
+	var titleList = document.getElementById('listTitle');
+	if(titleList.selectedIndex == 0){
+		drawCharts(selectedYear);
+		populateFiltersData(selectedYear);
+	}
+	else{
+	}
+}
+
+function deptRestrictedQueries(dept){
+	var queryText1 = "SELECT Title, AVERAGE(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY AVERAGE(Salary) DESC";
+	queryText1 = encodeURIComponent(queryText1);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
+	query.send(leftCallBack);
+
+	//Top 10
+	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' ORDER BY Salary DESC LIMIT 10";
+	queryText3 = encodeURIComponent(queryText3);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
+	query.send(rightCallBack);
+
+	//Sal range by title
+	var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY Title ASC";
+	queryText4 = encodeURIComponent(queryText4);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
+	query.send(centerTopCallBack);
+}*/
+
+function changeTitle(title){
+	var titleList = document.getElementById('listTitle');
+	if(titleList.selectedIndex == 0){
+		selectedTitle = "";
+		drawCharts();
+	}
+	else{
+		selectedTitle=title;
+		drawCharts();
+		/*Highlight selected department in centerBottomChart*/
+		var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
+      	if(leftIndex.length > 0){
+        	removeHighLightInLeftData(leftIndex[0]);
+    	}
+    	removeHighlightInCenterTopData();
+
+		leftIndex = leftData.getFilteredRows([{column:0, value: title}]);
+    	if (leftIndex.length > 0){
+      		highlightRowInLeftData(leftIndex[0]);
+    	}
+    	var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: title}]);
+      	if (centerTopIndex.length > 0){
+      		highlightSeriesInCenterTopData(centerTopIndex[0]);
+    	}
+	}
+}
+
+function changeDepartment(dept){
+	var deptList = document.getElementById('listDept');
+	if(deptList.selectedIndex == 0){
+		selectedDepartment = "";
+		drawCharts();
+	}
+	else{
+		selectedDepartment=dept;
+		drawCharts();
+		/*Highlight selected department in centerBottomChart*/
+		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+  		if(centerBottomIndex.length > 0){
+  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
+  		}
+		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
+    	if(centerBottomIndex.length > 0)
+    		highlightColumnInCenterBottomData(centerBottomIndex[0]);
+	}
+}
 
 function changeYear(year){
 	selectedYear = year;
@@ -99,130 +284,29 @@ function changeYear(year){
 });
 }
 
-function drawCharts(year){
-	/*Avg sal by title*/
-	var queryText1 = "SELECT%20Title,%20AVERAGE(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20AVERAGE(Salary)%20DESC";
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
-	query.send(leftCallBack);
-
-	/*Avg sal by dept*/
-	var queryText2 = "SELECT%20Department,%20AVERAGE(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Department%20ORDER%20BY%20AVERAGE(Salary)%20DESC";
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText2);
-	query.send(centerBottomCallBack);
-
-	/*Top 10*/
-	var queryText3 = "SELECT%20Name,%20Title,%20Department,%20Salary%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20ORDER%20BY%20Salary%20DESC%20LIMIT%2010";
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
-	query.send(rightCallBack);
-
-	/*Sal range by title*/
-	var queryText4 = "SELECT%20Title,%20MINIMUM(Salary),%20AVERAGE(Salary),%20AVERAGE(Salary),%20MAXIMUM(Salary)%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year+"%20GROUP%20BY%20Title%20ORDER%20BY%20Title%20ASC";
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
-	query.send(centerTopCallBack);
-}
-
-
-function populateFiltersData(year){
-	fetchAutocompleteData(year);
-
-	/*Populate browse dept*/
-	var queryText6 = "SELECT%20Department%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
-	query.send(populateDeptCallBack);
-
-	/*Populate browse title*/
-	queryText6 = "SELECT%20Title%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
-	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
-	query.send(populateTitleCallBack);
-}
-
-function initSlider() {
-        $( "#slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 75, 300 ],
-            slide: function( event, ui ) {
-                //$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-				sliderMin = $( "#slider-range" ).slider( "values", 0 );
-				sliderMax = $( "#slider-range" ).slider( "values", 1 );
-				var valLabel = document.getElementById('valueSlider');
-				valLabel.innerHTML = sliderMin + ' - ' +sliderMax;
-            }
-        });
-        //$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-          //" - $" + $( "#slider-range" ).slider( "values", 1 ) );
-		  		sliderMin = $( "#slider-range" ).slider( "values", 0 );
-				sliderMax = $( "#slider-range" ).slider( "values", 1 );
-		var valLabel = document.getElementById('valueSlider');
-		valLabel.innerHTML = sliderMin + ' - ' +sliderMax;
-    }
-
-function dataByDepartment(dept){
-	/*This is called when a department is selected*/
-	var deptList = document.getElementById('listDept');
-	if(deptList.selectedIndex == 0){
-		drawCharts(selectedYear);
-		populateFiltersData(selectedYear);
+function buildWhereClause(){
+	//Year
+	var clause="";
+	if(selectedYear != ""){
+		clause = clause + "Year='" + selectedYear + "' AND ";
 	}
-	else{
-		deptRestrictedQueries(dept);
-
-		/*Highlight selected department in centerBottomChart*/
-		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
-  		if(centerBottomIndex.length > 0){
-  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
-  		}
-		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
-    	if(centerBottomIndex.length > 0)
-    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	
+	//Department
+	if(selectedDepartment != ""){
+		clause = clause + "Department='" + selectedDepartment + "' AND ";
 	}
-}
-
-function dataByTitle(title){
-	/*This is called when a department is selected*/
-	var titleList = document.getElementById('listTitle');
-	if(titleList.selectedIndex == 0){
-		drawCharts(selectedYear);
-		populateFiltersData(selectedYear);
+	//Title
+	if(selectedTitle != ""){
+		clause = clause + "Title='" + selectedTitle + "' AND ";
 	}
-	else{
-		/*titleRestrictedQueries(dept);
-
-		//Highlight selected department in centerBottomChart
-		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
-  		if(centerBottomIndex.length > 0){
-  			removeHighlightInCenterBottomData(centerBottomIndex[0]);
-  		}
-		centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: dept}]);
-    	if(centerBottomIndex.length > 0)
-    		highlightColumnInCenterBottomData(centerBottomIndex[0]);	*/
-	}
+	//Range
+	clause = clause + "Salary>=" + salaryMin +" AND Salary<=" + salaryMax; 
+	return clause;
 }
-
-function deptRestrictedQueries(dept){
-	var queryText1 = "SELECT Title, AVERAGE(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY AVERAGE(Salary) DESC";
-	queryText1 = encodeURIComponent(queryText1);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText1);
-	query.send(leftCallBack);
-
-	/*Top 10*/
-	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' ORDER BY Salary DESC LIMIT 10";
-	queryText3 = encodeURIComponent(queryText3);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
-	query.send(rightCallBack);
-
-	/*Sal range by title*/
-	var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE Year="+selectedYear+" AND Department='"+dept+"' GROUP BY Title ORDER BY Title ASC";
-	queryText4 = encodeURIComponent(queryText4);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
-	query.send(centerTopCallBack);
-}
-
 
 function fetchAutocompleteData(year){
-	var queryText5 = "SELECT%20Name%20FROM%20"+gatechTableID+"%20WHERE%20Year="+year;
+	var queryText5 = "SELECT Name FROM "+gatechTableID+" WHERE Year="+year;
 	// Construct the URL to grab the data
+	queryText5 = encodeURIComponent(queryText5);
     var url = ['https://www.googleapis.com/fusiontables/v1/query'];
     url.push('?sql=' + queryText5);
     url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
@@ -277,14 +361,3 @@ function populateTitleCallBack(response){
 		combo.options[i+1]=new Option(availableValues[i],availableValues[i]);
 }
 
-function initMap() {
-  	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" GROUP BY Department";
-  	deptExpenseQueryText = encodeURIComponent(deptExpenseQueryText);
-  	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + deptExpenseQueryText);
-	query.send(deptExpenseCallBack);
-
-	var gisQueryText = "SELECT Department, Latitude, Longitude FROM "+gisTableID;
-	gisQueryText = encodeURIComponent(gisQueryText);
-	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + gisQueryText);
-	query.send(gisCallBack);
-}

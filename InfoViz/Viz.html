@@ -23,19 +23,13 @@
  google.load('visualization', '1', {packages: ['table']});
 	google.setOnLoadCallback(function() {
     	drawCharts("2011");
-	});
-	//google.setOnLoadCallback(drawVisualizations);
-	google.setOnLoadCallback(function() {
     	populateFiltersData("2011");
-
 	});
 	$(function() {
-		drawMap();
-    initMap();
-	initSlider();
+		init();
+	});
+</script>
 
-});
-	</script>
 </head>
 <body>
     <div id="container">
@@ -72,10 +66,10 @@
 					</div><!--slider-range-->
 				</div><!--search-->
 				<div id="browse">
-					<select id='listDept' onchange="dataByDepartment(this.options[this.selectedIndex].value);">
+					<select id='listDept' onchange="changeDepartment(this.options[this.selectedIndex].value);">
 						<option value=''>&lt;Browse department&gt;</option>
 					</select>
-					<select id='listTitle' onchange="dataByTitle(this.options[this.selectedIndex].value);">
+					<select id='listTitle' onchange="changeTitle(this.options[this.selectedIndex].value);">
 						<option value=''>&lt;Browse title&gt;</option>
 					</select>
 				</div><!--browse-->
