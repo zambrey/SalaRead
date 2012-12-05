@@ -59,6 +59,9 @@ div #Map
 	height: 450px !important;
 	width: 960px;
 	margin : 0 auto 0;
+	border-style: solid;
+	border-color: lightGoldenrodYellow;
+	border-bottom : 0px;
 	}
 	
 label #lookFor{
@@ -89,6 +92,9 @@ div #Data
 	height: 450px;
 	width: 960px;
 	margin : 0 auto 0;
+	border-style: solid;
+	border-color: lightGoldenrodYellow;
+	border-top: 0px;
 }
 div #navigation
 {
