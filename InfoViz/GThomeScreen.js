@@ -160,11 +160,19 @@ function initSlider() {
             max: 500,
             values: [ 75, 300 ],
             slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                //$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				sliderMin = $( "#slider-range" ).slider( "values", 0 );
+				sliderMax = $( "#slider-range" ).slider( "values", 1 );
+				var valLabel = document.getElementById('valueSlider');
+				valLabel.innerHTML = sliderMin + ' - ' +sliderMax;
             }
         });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        //$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+          //" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		  		sliderMin = $( "#slider-range" ).slider( "values", 0 );
+				sliderMax = $( "#slider-range" ).slider( "values", 1 );
+		var valLabel = document.getElementById('valueSlider');
+		valLabel.innerHTML = sliderMin + ' - ' +sliderMax;
     }
 
 function dataByDepartment(dept){
