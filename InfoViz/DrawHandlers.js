@@ -10,7 +10,8 @@ function drawLeftChart(){
         vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
 		hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
 		isStacked: true,
-		height: 320,
+		//height: 320,
+		width:400,
 		legend: {position: 'none'}
     };
 	leftChart = new google.visualization.BarChart(document.getElementById('left'));
@@ -42,8 +43,8 @@ function drawCenterBottomChart(){
 		vAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
 		hAxis: {title: 'Department',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:4},
 		isStacked: true,
-		height: 238,
-		width: 800,
+		//height: 238,
+		width: 700,
 		fontSize : 10,
 		legend: {position: 'none'}
     };
@@ -59,7 +60,7 @@ function drawCenterTopChart(){
 		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:3},
 		height: 238,  
 		fontSize: 10,
-      	width: 800,
+      	width: 700,
       	colors: ["Black"],
       	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}

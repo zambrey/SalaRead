@@ -162,17 +162,19 @@ select #listTitle
 
 div #stats
 {
-	height: 93.75%;
+	height: 100%;
+	width:66.66%;
+	float:left;
 }
 div #left
 {
-	width: 25%;
+	width: 33.33%;
 	float: left;
 	height:87.5%;
 }
 div #center
 {
-	width: 75%;
+	
 	float :left;
 	height:100%;
 }
@@ -190,7 +192,7 @@ height:50%;
 
 div #rightOutter
 {
-	height:100%;
+	height:82%;
 	width: 25%;
 	float: left;
 }
