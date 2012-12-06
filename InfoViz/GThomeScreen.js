@@ -87,7 +87,7 @@ function drawCharts(){
 	}
 
 	/*Top 10*/
-	var queryText3 = "SELECT Name, Title, Department, Salary FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" ORDER BY Salary DESC LIMIT 10";
+	var queryText3 = "SELECT Name, Title, Department, Salary, Gender FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" ORDER BY Salary DESC LIMIT 10";
 	queryText3 = encodeURIComponent(queryText3);
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
 	query.send(rightCallBack);

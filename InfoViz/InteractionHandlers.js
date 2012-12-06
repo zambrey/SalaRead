@@ -6,7 +6,7 @@ function tableMouseOut(e){
 
   		if(leftIndex.length > 0 && titleList.selectedIndex==0){
   			removeHighLightInLeftData(leftIndex[0]);
-		}
+		  }
     	/*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
   		-	removeHighlightInCenterTopData(centerTopIndex[0]);
@@ -17,7 +17,11 @@ function tableMouseOut(e){
     	var deptList = document.getElementById('listDept');
   		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
   			removeHighlightInCenterBottomData(centerBottomIndex[0]);
-		}
+		  }
+      var genderIndex = genderData.getFilteredRows([{column:1, value: 0}]);
+      if(genderIndex.length > 0){
+        removeHighlightInGenderChart(genderIndex[0]);
+      }
 	}
 }
 
@@ -39,6 +43,18 @@ function tableSelected(e){
         var centerBottomIndex = centerBottomData.getFilteredRows([{column:0, value: top10Data.getValue(index,2)}]);
         if(centerBottomIndex.length > 0)
           highlightColumnInCenterBottomData(centerBottomIndex[0]);
+
+        var genderIndex = genderData.getFilteredRows([{column:1, value: 0}]);
+        if(genderIndex.length > 0){
+          removeHighlightInGenderChart(genderIndex[0]);
+        }
+        var genderFull;
+        if(top10Data.getValue(index,4)=='M')
+          genderFull = 'Male';
+        else genderFull = 'Female';
+        genderIndex = genderData.getFilteredRows([{column:0, value: genderFull}]);
+        if(genderIndex.length > 0)
+          highlightInGenderChart(genderIndex[0]);
       }
       else{
         rightChart.setSelection([{'row': null, 'column': null}]);
@@ -57,6 +73,10 @@ function tableSelected(e){
         var deptList = document.getElementById('listDept');
         if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
           removeHighlightInCenterBottomData(centerBottomIndex[0]);
+        }
+        var genderIndex = genderData.getFilteredRows([{column:1, value: 0}]);
+        if(genderIndex.length > 0){
+          removeHighlightInGenderChart(genderIndex[0]);
         }
       }
     }
@@ -126,6 +146,33 @@ function removeHighLightInLeftData(rowInd){
   leftData.setValue(rowInd,1,leftData.getValue(rowInd,2));
     leftData.setValue(rowInd,2,0);
     drawLeftChart();
+}
+
+function highlightInGenderChart(rowInd){
+  var tempData = new google.visualization.DataTable();
+  tempData.addRows(genderData.getNumberOfRows());
+  tempData.addColumn('string','Gender');
+  tempData.addColumn('number','Salary');
+  tempData.addColumn('number','Salary');
+  for(var i=0; i<genderData.getNumberOfRows(); i++){
+    tempData.setValue(i,0,genderData.getValue(i,0));
+    if(i==rowInd){
+      tempData.setValue(i,1,0);
+      tempData.setValue(i,2,genderData.getValue(i,1));
+    }
+    else{
+      tempData.setValue(i,1,genderData.getValue(i,1));
+      tempData.setValue(i,2,0);
+    }
+  }
+  genderData = tempData;
+  drawGenderChart();  
+}
+
+function removeHighlightInGenderChart(rowInd){
+    genderData.setValue(rowInd,1,genderData.getValue(rowInd,2));
+    genderData.setValue(rowInd,2,0);
+    drawGenderChart();
 }
 
 function highlightSeriesInCenterTopData(rowInd){
