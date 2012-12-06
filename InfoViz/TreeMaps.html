@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<link rel="stylesheet" type="text/css" href="css/StyleSheet1.css" />
+<link rel="stylesheet" type="text/css" href="css/StyleSheet3.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
@@ -17,50 +17,70 @@
 <script type="text/javascript" src="InteractionHandlers.js"></script>
 <script type="text/javascript" src="DrawHandlers.js"></script>
 <script type="text/javascript" src="Utilities.js"></script>
-
-
+<script type="text/javascript" src="TreeMaps.js"></script>
+<script>
+	$(function() {
+		changeTreeMap("2011");
+		populateFiltersData("2011");
+	});
+</script> 
 </head>
 <body>
     <div id="container">
-		<div id="Map" >
+		<div id="Map">
 		<div id="year">
 				<span class="years">
 				</span>
 				<span class="years">
-				<a  class="button2008" onclick="">2008</a>
+				<a  class="button2008" onclick="changeTreeMap(2008)">2008</a>
 				</span>
 				<span class="years">
-				<a class="button2009"  onclick="">2009</a>
+				<a class="button2009"  onclick="changeTreeMap(2009)">2009</a>
 				</span>	
 				<span class="years">
-				<a class="button2010"  onclick="">2010</a>
+				<a class="button2010"  onclick="changeTreeMap(2010)">2010</a>
 				</span>
 				<span class="years">
-				<a class="button2011" onclick="">2011</a>
+				<a class="button2011" onclick="changeTreeMap(2011)">2011</a>
 				</span>
 				<span class="years">
 				</span>
 			</div> <!--year-->
-			</div><!--Map-->
-			
-			<div id="2008Dept">
-			</div> <!--2008Dept-->
-			<div id="2009Dept">
-			</div> <!--2009Dept-->
-			<div id="2010Dept">
-			</div> <!--2010Dept-->
-			<div id="2011Dept">
-			</div> <!--2011Dept-->
-			<div id="2008Title">
-			</div> <!--2008Title-->
-			<div id="2009Title">
-			</div> <!--2009Title-->
-			<div id="2010Title">
-			</div> <!--2010Title-->
-			<div id="2011Title">
-			</div> <!--2011Title-->
-			
+		</div> <!--div-->
+		<div id="search">
+		<label id="lookFor" for="tags"></label>
+		<input id="tags" placeholder="     Enter Name"/>
+		<a  id="mainPage" href="Viz.html" style="float:right" > Switch to Dashboard </a>
+		</div><!--search-->
+ <div id="2011-bytitle" style="	margin: 0 auto 0; height: 400px; width: 948px">
+         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"useFormatFromData":true,"title":"Horizontal axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"useFormatFromData":true,"title":"Left vertical axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"maxDepth":1,"booleanRole":"certainty","title":"Treemap by Title","annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Title","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"}
+		
+		 </script>
+         </div><!--2011-bytitle-->
+         <div id="2011-bydept" style="	margin: 0 auto 0; height: 400px; width: 948px">
+         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1099&gid=5&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"useFormatFromData":true,"title":"Horizontal axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"useFormatFromData":true,"title":"Left vertical axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"maxDepth":1,"booleanRole":"certainty","title":"Treemap by Department","annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Department","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2011-bydept-->
 
+         <div id="2010-bytitle" style="	margin: 0 auto 0; height: 400px; width: 948px">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1055&gid=6&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"title":"Horizontal axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"title":"Left vertical axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Treemap by Title","booleanRole":"certainty","maxDepth":1,"annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Title","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2010-bytitle-->
+         <div id="2010-bydept" style="	margin: 0 auto 0; height: 400px; width: 948px">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1088&gid=4&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"title":"Horizontal axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"title":"Left vertical axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Treemap by Department","booleanRole":"certainty","maxDepth":1,"annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Department","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2010-bydept-->
+
+         <div id="2009-bytitle" style="	margin: 0 auto 0; height: 400px; width: 948px">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1068&gid=5&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"useFormatFromData":true,"title":"Horizontal axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"useFormatFromData":true,"title":"Left vertical axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"maxDepth":1,"booleanRole":"certainty","title":"Treemap by Title","annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Title","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2009-bytitle-->
+         <div id="2009-bydept" style="	margin: 0 auto 0; height: 400px; width: 948px">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1101&gid=3&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"useFormatFromData":true,"title":"Horizontal axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"useFormatFromData":true,"title":"Left vertical axis title","minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"maxDepth":1,"booleanRole":"certainty","title":"Treemap by Department","annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Department","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2009-bydept-->
+
+         <div id="2008-bytitle" style="	margin: 0 auto 0; height: 400px; width: 948px">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1066&gid=4&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"title":"Horizontal axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"title":"Left vertical axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Treemap by Title","booleanRole":"certainty","maxDepth":1,"annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Title","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2008-bytitle-->
+         <div id="2008-bydept" style="	margin: 0 auto 0; height: 400px; width: 948px">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/spreadsheet/tq?key=0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1099&gid=2&pub=1","options":{"showTip":true,"titleTextStyle":{"fontSize":16},"fontColor":"#fff","midColor":"#EFE6DC","animation":{"duration":0},"headerColor":"#666666","maxColor":"#6d9eeb","headerHeight":40,"fontSize":"14","showScale":true,"hAxis":{"title":"Horizontal axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},"vAxes":[{"title":"Left vertical axis title","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Treemap by Department","booleanRole":"certainty","maxDepth":1,"annotations":{"domain":{"style":"line"}},"showTooltips":true,"minColor":"#c27ba0","width":960,"height":400},"state":{},"view":{"columns":[0,{"label":"Department","properties":{"role":"annotation"},"sourceColumn":1},2,3]},"chartType":"TreeMap","chartName":"Chart 1"} </script>
+         </div><!--2008-bydept-->
 			
 	</div> <!--container-->
 </html>

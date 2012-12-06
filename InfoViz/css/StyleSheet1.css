@@ -164,6 +164,11 @@ select #listTitle
 	float:left;
 }
 
+a #tree
+{
+	padding : 280px;
+}
+
 div #stats
 {
 	height: 100%;
