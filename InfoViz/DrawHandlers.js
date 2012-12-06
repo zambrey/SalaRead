@@ -121,7 +121,7 @@ function drawMarkers(){
 		});
 		markers.push(marker);
 		marker.set('scale',scale);
-        marker.set('deptName', gisData.getValue(i,0));
+        marker.set('deptName', joinedDataTable.getValue(i,0));
         marker.set('expenditure',"Total Expenditure: $"+ addCommas(parseFloat(joinedDataTable.getValue(i,3).toFixed(2))));
 		google.maps.event.addListener(marker, 'click', 
 			function() {
