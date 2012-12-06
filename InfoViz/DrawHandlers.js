@@ -9,11 +9,12 @@ var markers  = [];
 function drawLeftChart(){
 	var options = {
     	title: 'Average Salary by Title',
-        vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
+        //vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
+		//hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
 		isStacked: true,
-		//height: 320,
-		width:400,
+		height: 250,
+		//width:300,
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
 	leftChart = new google.visualization.BarChart(document.getElementById('left'));
@@ -28,6 +29,7 @@ function drawRightChart(){
 	var options = {
 		//height: 370,
 		width: 239,
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		showRowNumber: true,
 		firstRowNumber: 1
 	};
@@ -42,12 +44,13 @@ function drawRightChart(){
 function drawCenterBottomChart(){
 	var options = {
 		title: 'Average Salary by Department',
-		vAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Department',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:4},
+		//vAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
+		//hAxis: {title: 'Department',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:4},
 		isStacked: true,
 		//height: 238,
 		width: 700,
 		fontSize : 10,
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
 
@@ -58,11 +61,12 @@ function drawCenterBottomChart(){
 function drawCenterTopChart(){
 	var options = {
 		title: 'Salary Range By Title',
-		vAxis: {title: 'Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
-		hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:3},
+		//vAxis: {title: 'Salary',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
+		//hAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, slantedText: false, maxAlternation:4, showTextEvery:1, maxTextLines:3},
 		height: 238,  
 		fontSize: 10,
       	width: 700,
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
       	colors: ["Black"],
       	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}

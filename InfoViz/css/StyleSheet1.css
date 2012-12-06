@@ -8,7 +8,7 @@ html {
 
 body {
   margin: 0;
-  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family:  Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
@@ -16,11 +16,11 @@ body {
 }
 
 .ui-widget {
-font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+font-family: Calibri, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 select{
-	font-family:Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-family:Calibri, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	margin : 2px 0px 2px 0px;
 }
 
@@ -64,7 +64,7 @@ div #container{
 
 div #Map
 {
-	height: 450px !important;
+	height: 410px !important;
 	width: 960px;
 	margin : 0 auto 0;
 	border-style: solid;
@@ -100,20 +100,20 @@ p.topTen
 {
 text-align: center;
 font-size: 16px;
-background-color: #FAFAFA;
+background-color: lightGoldenrodYellow;
 margin: 0px 0px 0px 0px;
-padding: 10px 10px 10px 10px;
+
 }
 
 div #maps 
 {
 	width: 75%;
-	height: 82%;
+	height: 78%;
 	display: block;
 	}	
 div #Data
 {
-	height: 450px;
+	height: 500px;
 	width: 960px;
 	margin : 0 auto 0;
 	border-style: solid;
@@ -123,7 +123,7 @@ div #Data
 div #navigation
 {
 	width: 100%;
-	height: 10%;
+	height: 14%;
 	background-color: lightGoldenrodYellow;
 }
 p.navigation
@@ -170,8 +170,15 @@ div #left
 {
 	width: 33.33%;
 	float: left;
-	height:87.5%;
+	
 }
+
+div #gender
+{
+	float:left;
+	display:block;
+}
+
 div #center
 {
 	
@@ -192,13 +199,13 @@ height:50%;
 
 div #rightOutter
 {
-	height:82%;
+	height:77%;
 	width: 25%;
 	float: left;
 }
 div #year
 {	
-	height : 7%;
+	height : 8%;
 	border-bottom: 3px;
 	border-style: solid;
 	border-top: 0px;
@@ -240,7 +247,7 @@ button
 footer {
   margin: 0;
   text-align:center;
-  font-family: Georgia, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Calibri, Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;

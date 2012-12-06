@@ -57,7 +57,7 @@ function initSlider() {
 				salaryMin = $( "#slider-range" ).slider( "values", 0 );
 				salaryMax = $( "#slider-range" ).slider( "values", 1 );
 				var valLabel = document.getElementById('valueSlider');
-				valLabel.innerHTML = salaryMin + ' - ' +salaryMax;
+				valLabel.innerHTML = 'Salary Range:' + salaryMin + ' - ' +salaryMax;
 				drawCharts();
             }
         });
