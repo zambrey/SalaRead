@@ -10,3 +10,7 @@ function addCommas(nStr)
 	}
 	return x1 + x2;
 }
+
+function buildContentString(marker){
+	return "<p>"+ marker.get('deptName')+" <br/> "+ marker.get('expenditure')+"</p>";
+}

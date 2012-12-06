@@ -32,7 +32,7 @@ function init(){
 }
 
 function initMapExpenseValues() {
-  	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" GROUP BY Department";
+  	var deptExpenseQueryText = "SELECT Department, SUM(Salary) FROM "+gatechTableID+" WHERE Year='"+ selectedYear +"'GROUP BY Department";
   	deptExpenseQueryText = encodeURIComponent(deptExpenseQueryText);
   	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + deptExpenseQueryText);
 	query.send(deptExpenseCallBack);
@@ -149,11 +149,13 @@ function changeTitle(title){
 function changeDepartment(dept){
 	var deptList = document.getElementById('listDept');
 	if(deptList.selectedIndex == 0){
+		removeHighlightFromMapMarker();
 		selectedDepartment = "";
 		drawCharts();
 	}
 	else{
 		selectedDepartment=dept;
+		highlightDepartmentInMap(selectedDepartment);
 		drawCharts();
 		/*Highlight selected department in centerBottomChart*/
 		var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
@@ -168,6 +170,7 @@ function changeDepartment(dept){
 
 function changeYear(year){
 	selectedYear = year;
+	clearMapSelection();
 	drawCharts(year);
 	populateFiltersData(year);
 	 	$("a.button2008, a.button2009, a.button2010, a.button2011").css({

@@ -186,16 +186,50 @@ function removeHighlightFromMapMarker(){
       break;
     }
   }
+  if(infoWindow!=null)
+    infoWindow.close();
 }
 
 function highlightMapMarker(marker){
-var selectedBubble = {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: "red",
-            fillOpacity: 0.7,
-            scale: marker.get('scale'),
-            strokeColor: "white",
-            strokeWeight: 3
-        };
+  var selectedBubble = {
+    path: google.maps.SymbolPath.CIRCLE,
+    fillColor: "red",
+  fillOpacity: 0.7,
+  scale: marker.get('scale'),
+  strokeColor: "white",
+  strokeWeight: 3
+  };
         marker.setIcon(selectedBubble);
+}
+
+function highlightDepartmentInMap(dept){
+  removeHighlightFromMapMarker();
+  for(var i=0; i<markers.length; i++){
+    if(markers[i].get('deptName')==dept){
+      highlightMapMarker(markers[i]);
+      if(infoWindow == null)
+            infoWindow = new google.maps.InfoWindow({position: this.position,content: markers[i].get('deptName')});
+          infoWindow.setPosition(markers[i].position);
+          infoWindow.setContent(buildContentString(markers[i]));
+        infoWindow.open(map);
+      break;
+    }
+  }
+}
+
+function setDepartmentFromMap(dept){
+  var deptList = document.getElementById('listDept');
+  for(var i=0; i<deptList.options.length; i++){
+    if(deptList.options[i].value==dept){
+      deptList.selectedIndex = i;
+      break;
+    }
+  }
+}
+
+function clearMapSelection(){
+  removeHighlightFromMapMarker();
+  var deptList = document.getElementById('listDept');
+  deptList.selectedIndex = 0;
+  changeDepartment(deptList.options[0].value);
 }

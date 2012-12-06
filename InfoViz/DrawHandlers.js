@@ -76,10 +76,10 @@ function drawCenterTopChart(){
 
 function drawMarkers(){
   	joinedDataTable = new google.visualization.data.join(gisData, deptExpenseData, 'inner', [[0,0]],[1,2],[1]);
-  	
+  	var range = joinedDataTable.getColumnRange(3);
   	for(var i=0; i< joinedDataTable.getNumberOfRows(); i++){
   		
-  		var scale = joinedDataTable.getValue(i,3)/700000;
+  		var scale = 60*joinedDataTable.getValue(i,3)/range.max;
   	  	var bubble = {
   			path: google.maps.SymbolPath.CIRCLE,
   			fillColor: "gold",
@@ -96,31 +96,21 @@ function drawMarkers(){
 		});
 		markers.push(marker);
 		marker.set('scale',scale);
-        marker.set('info', "<p>"+ gisData.getValue(i,0)+" <br/> Total Expenditure: $"+ addCommas(parseFloat(joinedDataTable.getValue(i,3).toFixed(2)))+"</p>");
+        marker.set('deptName', gisData.getValue(i,0));
+        marker.set('expenditure',"Total Expenditure: $"+ addCommas(parseFloat(joinedDataTable.getValue(i,3).toFixed(2))));
 		google.maps.event.addListener(marker, 'click', 
 			function() {
 				//var myLatLng = new google.maps.LatLng(gisData.getValue(i,1),gisData.getValue(i,2));
 				removeHighlightFromMapMarker();
-    			/*if(this.getIcon().fillColor=="red"){
-    				infoWindow.close();
-    				var bubble = {
-  						path: google.maps.SymbolPath.CIRCLE,
-  						fillColor: "gold",
-  						fillOpacity: 0.7,
-  						scale: this.get('scale'),
-  						strokeColor: "white",
-  						strokeWeight: 3
-					};
-					this.setIcon(bubble);
-    				return;
-    			}*/
     			if(infoWindow == null)
-    				infoWindow = new google.maps.InfoWindow({position: this.position,content: this.get('info')});
+    				infoWindow = new google.maps.InfoWindow({position: this.position,content: this.get('deptName')});
     			infoWindow.setPosition(this.position);
-    			infoWindow.setContent(this.get('info'));
+    			infoWindow.setContent(buildContentString(this));
 				infoWindow.open(map);
 				//this.getIcon().fillColor = "red";
 				highlightMapMarker(this);
+				setDepartmentFromMap(this.get('deptName'));
+				changeDepartment(this.get('deptName'));
 			}
 		);
 	}
@@ -129,8 +119,13 @@ function drawMarkers(){
 function drawMap(){
 	var mapDiv = document.getElementById('maps');
     map = new google.maps.Map(mapDiv, {
-    	center: new google.maps.LatLng(33.774898, -84.40222),
-    	zoom: 14,
+    	center: new google.maps.LatLng(33.775898, -84.398998),
+    	zoom: 15,
     	mapTypeId: google.maps.MapTypeId.ROADMAP
   	});
+
+	google.maps.event.addListener(map, 'click', function() {
+   		clearMapSelection();
+  	});
+
 }
