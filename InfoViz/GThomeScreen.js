@@ -289,7 +289,9 @@ function fetchAutocompleteData(year){
 function onPersonSelected(event,ui){
 	sessionStorage.clear();
 	sessionStorage.setItem(ui.item.label,'selectedPerson');
-	window.location.href = "Personal.html"
+	//window.location.href = "Personal.html"
+	// Open in a pop-up window
+	window.open("Personal.html","Employee Details","status=1,width=650,height=400,resizable=1");
 }
 
 function populateDeptCallBack(response){
