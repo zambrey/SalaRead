@@ -14,6 +14,7 @@ function drawLeftChart(){
 		isStacked: true,
 		height: 250,
 		//width:300,
+		backgroundColor : 'lightGoldenrodYellow',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
@@ -29,6 +30,7 @@ function drawRightChart(){
 	var options = {
 		//height: 370,
 		width: 239,
+		backgroundColor : 'lightGoldenrodYellow',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		showRowNumber: true,
 		firstRowNumber: 1
@@ -50,6 +52,7 @@ function drawCenterBottomChart(){
 		//height: 238,
 		width: 700,
 		fontSize : 10,
+		backgroundColor : 'lightGoldenrodYellow',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
@@ -67,6 +70,7 @@ function drawCenterTopChart(){
 		fontSize: 10,
       	width: 700,
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
+		backgroundColor : 'lightGoldenrodYellow',
       	colors: ["Black"],
       	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}
