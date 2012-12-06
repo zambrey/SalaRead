@@ -21,7 +21,7 @@ function infoCallBack(response){
   	formatter.format(infoData, 4); // Apply formatter to salary column
   	var dateformatter = new google.visualization.DateFormat({pattern: "yyyy"});
   	dateformatter.format(infoData,3);
-	infoData.addColumn('string','Rank');
+	infoData.addColumn('string','Overall Rank');
 	for(var i=0; i<infoData.getNumberOfRows();i++){
 		//infoData.setValue(i,5,
 			getRank(i,infoData.getFormattedValue(i,3), infoData.getNumberOfRows(), drawInfoTable);//);
@@ -82,7 +82,7 @@ function drawLineChart(){
     var dtable = new google.visualization.DataTable();
     dtable.addColumn('string','Year');
     dtable.addColumn('number','Salary(in thousands)');
-    dtable.addColumn('number','Percentile');
+    dtable.addColumn('number','Percentile(across all Titles and all Departments)');
     dtable.addRows(infoData.getNumberOfRows());
     for(var i=0; i<infoData.getNumberOfRows();i++){
     	dtable.setValue(i,0,infoData.getFormattedValue(i,3));

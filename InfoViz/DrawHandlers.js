@@ -17,6 +17,7 @@ function drawLeftChart(){
 		//width:300,
 		backgroundColor : 'lightGoldenrodYellow',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
+		chartArea:{left:100,bottom:20,width:"62%",height:"70%"},
 		legend: {position: 'none'}
     };
 	leftChart = new google.visualization.BarChart(document.getElementById('left'));
