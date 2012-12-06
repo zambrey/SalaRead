@@ -70,11 +70,13 @@ function drawInfoTable(){
 
 function drawLineChart(){
 	var options = {
-		title: 'Income over years',
+		title: 'Income over the Years',
 		vAxis: {title: 'Salary/Rank',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
 		hAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
 		height: 200,
-		width: 400,
+		width: 630,
+		chartArea:{left:50,bottom:20,width:"70%",height:"50%"},
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 16},
 		pointSize: 4
     };
     var dtable = new google.visualization.DataTable();

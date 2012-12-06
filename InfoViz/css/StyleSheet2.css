@@ -8,8 +8,16 @@ html {
 body {
   margin: 0;
   font-family:  Georgia, serif, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  font-size: 14px;
+	text-align: center;
+	font-size: 18px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
+  padding: 15px 10px 10px 10px;
+}
+
+div #Name
+{
+
+
 }
