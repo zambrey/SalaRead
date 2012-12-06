@@ -121,11 +121,11 @@ function drawMap(){
     map = new google.maps.Map(mapDiv, {
     	center: new google.maps.LatLng(33.775898, -84.398998),
     	zoom: 15,
-    	mapTypeId: google.maps.MapTypeId.ROADMAP
+    	disableDefaultUI: true,
+    	mapTypeId: google.maps.MapTypeId.TERRAIN
   	});
 
 	google.maps.event.addListener(map, 'click', function() {
    		clearMapSelection();
   	});
-
 }
