@@ -3,6 +3,7 @@ var leftChart;
 var centerTopChart;
 var centerBottomChart;
 var rightChart;
+var genderChart;
 var infoWindow=null;
 var markers  = [];
 
@@ -80,6 +81,22 @@ function drawCenterTopChart(){
 	centerTopChart.draw(centerTopData, options);
 	google.visualization.events.addListener(centerTopChart, 'onmouseover', rangeMouseOver);
     google.visualization.events.addListener(centerTopChart, 'onmouseout', rangeMouseOut);
+}
+
+function drawGenderChart(){
+	var options = {
+    	title: 'Average Salary by Gender',
+        //vAxis: {title: 'Title',  titleTextStyle: {color: 'red'}, textStyle: {fontSize: 10}},
+		//hAxis: {title: 'Average Salary',  titleTextStyle: {color: 'red'}},
+		isStacked: true,
+		height: 250,
+		width:320,
+		backgroundColor : 'lightGoldenrodYellow',
+		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
+		legend: {position: 'none'}
+    };
+	genderChart = new google.visualization.BarChart(document.getElementById('gender'));
+	genderChart.draw(genderData, options);
 }
 
 function drawMarkers(){

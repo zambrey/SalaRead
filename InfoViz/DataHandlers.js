@@ -6,6 +6,7 @@ var rightData;
 var top10Data;
 var deptExpenseData;
 var gisData;
+var genderData;
 
 function leftCallBack(response){
 	if (response.isError()) {
@@ -84,4 +85,19 @@ function gisCallBack(response){
 	}
 	gisData = response.getDataTable();
 	drawMarkers();
+}
+
+function genderCallBack(response){
+	if (response.isError()) {
+		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+		return;
+	}
+	genderData = response.getDataTable();
+	for(var i=0; i<genderData.getNumberOfRows(); i++){
+		if(genderData.getValue(i,0)=='M')
+			genderData.setValue(i,0,'Male');
+		else
+			genderData.setValue(i,0,'Female');
+	}
+	drawGenderChart();	
 }

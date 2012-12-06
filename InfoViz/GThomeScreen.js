@@ -99,6 +99,12 @@ function drawCharts(){
 		var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText4);
 		query.send(centerTopCallBack);
 	}
+
+	/*Avg sal by gender*/
+	var queryText5 = "SELECT Gender, AVERAGE(Salary) FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" GROUP BY Gender";
+	queryText5 = encodeURIComponent(queryText5);
+	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText5);
+	query.send(genderCallBack);
 }
 
 
