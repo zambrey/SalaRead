@@ -61,9 +61,14 @@ function centerTopCallBack(response){
 		for(var j=0; j<centerTopData.getNumberOfRows(); j++)
 			centerTopData.setValue(j,i+5,0);
 	}*/
+	centerTopData.addColumn({type:'string',role:'tooltip'});
+
 	for(var j=0; j<centerTopData.getNumberOfRows(); j++){
 		centerTopData.setValue(j,2,centerTopData.getValue(j,2)-1);
 		centerTopData.setValue(j,3,centerTopData.getValue(j,3)+1);
+		centerTopData.setValue(j,5,centerTopData.getValue(j,0)+"\nMIN: $ "+ addCommas(parseFloat(centerTopData.getValue(j,1).toFixed(2)))+
+									"\nAVG: $ "+ addCommas(parseFloat((centerTopData.getValue(j,2)+1).toFixed(2)))+
+									"\nMAX: $ "+ addCommas(parseFloat(centerTopData.getValue(j,4).toFixed(2))));
 	}
 	drawCenterTopChart();
 }
