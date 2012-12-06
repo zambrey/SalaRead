@@ -133,13 +133,13 @@ function changeTitle(title){
       	if(leftIndex.length > 0){
         	removeHighLightInLeftData(leftIndex[0]);
     	}
-    	removeHighlightInCenterTopData();
 
-		leftIndex = leftData.getFilteredRows([{column:0, value: title}]);
+    	leftIndex = leftData.getFilteredRows([{column:0, value: title}]);
     	if (leftIndex.length > 0){
       		highlightRowInLeftData(leftIndex[0]);
     	}
-    	var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: title}]);
+    	removeHighlightInCenterTopData();
+		var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: title}]);
       	if (centerTopIndex.length > 0){
       		highlightSeriesInCenterTopData(centerTopIndex[0]);
     	}

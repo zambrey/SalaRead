@@ -2,14 +2,17 @@ function tableMouseOut(e){
 	if(rightChart.getSelection().length > 0){
 		rightChart.setSelection([{'row': null, 'column': null}]);
     	var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
-  		if(leftIndex.length > 0){
+      var titleList = document.getElementById('listTitle');
+
+  		if(leftIndex.length > 0 && titleList.selectedIndex==0){
   			removeHighLightInLeftData(leftIndex[0]);
 		}
     	/*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
   		if(centerTopIndex.length > 0){
   		-	removeHighlightInCenterTopData(centerTopIndex[0]);
   		}*/
-  		removeHighlightInCenterTopData();
+      if(titleList.selectedIndex==0)
+  		  removeHighlightInCenterTopData();
     	var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
     	var deptList = document.getElementById('listDept');
   		if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
@@ -22,9 +25,14 @@ function tableSelected(e){
       selected = rightChart.getSelection();
       if(selected.length > 0){
         var index = selected[0].row;
-        var leftIndex = leftData.getFilteredRows([{column:0, value: top10Data.getValue(index,1)}]);
+        var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
+        if(leftIndex.length > 0){
+          removeHighLightInLeftData(leftIndex[0]);
+        }
+        leftIndex = leftData.getFilteredRows([{column:0, value: top10Data.getValue(index,1)}]);
         if(leftIndex.length > 0)
           highlightRowInLeftData(leftIndex[0]);
+        removeHighlightInCenterTopData();
         var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: top10Data.getValue(index,1)}]);
         if(centerTopIndex.length > 0)
           highlightSeriesInCenterTopData(centerTopIndex[0]);
@@ -34,20 +42,22 @@ function tableSelected(e){
       }
       else{
         rightChart.setSelection([{'row': null, 'column': null}]);
-      var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
-      if(leftIndex.length > 0){
-        removeHighLightInLeftData(leftIndex[0]);
-    }
-      /*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
-      if(centerTopIndex.length > 0){
-        removeHighlightInCenterTopData(centerTopIndex[0]);
-      }*/
-      removeHighlightInCenterTopData();
-      var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
-      var deptList = document.getElementById('listDept');
-      if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
-        removeHighlightInCenterBottomData(centerBottomIndex[0]);
-    }
+        var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
+        var titleList = document.getElementById('listTitle');
+        if(leftIndex.length > 0 && titleList.selectedIndex==0){
+          removeHighLightInLeftData(leftIndex[0]);
+        }
+        /*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
+        if(centerTopIndex.length > 0){
+          removeHighlightInCenterTopData(centerTopIndex[0]);
+        }*/
+        if(titleList.selectedIndex==0)
+          removeHighlightInCenterTopData();
+        var centerBottomIndex = centerBottomData.getFilteredRows([{column:1, value: 0}]);
+        var deptList = document.getElementById('listDept');
+        if(centerBottomIndex.length > 0 && deptList.selectedIndex==0){
+          removeHighlightInCenterBottomData(centerBottomIndex[0]);
+        }
       }
     }
 
