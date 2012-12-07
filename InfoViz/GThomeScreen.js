@@ -176,7 +176,8 @@ function changeDepartment(dept){
 
 function changeYear(year){
 	selectedYear = year;
-	clearMapSelection();
+	clearAllSelections();
+	initMapExpenseValues();	/*Eventually calls initMapLocations*/
 	drawCharts(year);
 	populateFiltersData(year);
 	 	$("a.button2008, a.button2009, a.button2010, a.button2011").css({
@@ -245,6 +246,14 @@ function changeYear(year){
 			'background-image': 'url("button_state.png")',
 			'padding': '4px 57px 3px'                        
 });
+}
+
+function clearAllSelections(){ 
+	//Called when year changed
+	clearMapSelection();
+	selectedDepartment = "";
+	selectedTitle="";
+	initSlider();
 }
 
 function buildWhereClause(){

@@ -101,6 +101,11 @@ function drawGenderChart(){
 }
 
 function drawMarkers(){
+	var tempMarker=markers.pop();
+	while(tempMarker!=null){
+		tempMarker.setMap(null);
+		tempMarker = markers.pop();
+	}
   	joinedDataTable = new google.visualization.data.join(gisData, deptExpenseData, 'inner', [[0,0]],[1,2],[1]);
   	var range = joinedDataTable.getColumnRange(3);
   	for(var i=0; i< joinedDataTable.getNumberOfRows(); i++){
