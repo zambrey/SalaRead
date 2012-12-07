@@ -144,6 +144,27 @@ function drawMarkers(){
 				changeDepartment(this.get('deptName'));
 			}
 		);
+
+		google.maps.event.addListener(marker, 'mouseover', 
+			function() {
+				if(selectedDepartment==""){
+					if(infoWindow == null)
+    					infoWindow = new google.maps.InfoWindow({position: this.position,content: this.get('deptName')});
+    				infoWindow.setPosition(this.position);
+    				infoWindow.setContent(this.get('deptName'));
+					infoWindow.open(map);
+				}
+			}
+		);
+
+		google.maps.event.addListener(marker, 'mouseout', 
+			function() {
+				if(selectedDepartment==""){
+					if(infoWindow!=null)
+    					infoWindow.close();
+				}
+			}
+		);
 	}
 }
 

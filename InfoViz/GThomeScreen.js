@@ -50,9 +50,9 @@ function initSlider() {
             range: true,
             min: 0,
             max: 900000,
-            values: [ 10000, 850000 ],
+            values: [ 10000, 900000 ],
 			step: 10000,
-            slide: function( event, ui ) {
+            stop: function( event, ui ) {
                 //$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
 				salaryMin = $( "#slider-range" ).slider( "values", 0 );
 				salaryMax = $( "#slider-range" ).slider( "values", 1 );
