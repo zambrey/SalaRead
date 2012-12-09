@@ -260,7 +260,8 @@ function highlightMapMarker(marker){
   strokeColor: "white",
   strokeWeight: 3
   };
-        marker.setIcon(selectedBubble);
+  marker.setIcon(selectedBubble);
+  marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
 }
 
 function highlightDepartmentInMap(dept){

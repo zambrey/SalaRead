@@ -50,7 +50,7 @@ div #Map
 	width: 960px;
 	margin : 0 auto 0;
 	border-style: solid;
-	border-color: lightGoldenrodYellow;
+	border-color: white;
 	border-bottom : 0px;
 	}
 	
@@ -96,7 +96,7 @@ div #year
 	border-left: 0px;
 	border-right: 0px;
 	border-color: #313131;
-	background-color: lightGoldenrodYellow;
+	background-color: white;
 }
 p.data
 {
