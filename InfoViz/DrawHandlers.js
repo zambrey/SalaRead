@@ -23,7 +23,7 @@ function drawLeftChart(){
 		isStacked: true,
 		height: 250,
 		//width:300,
-		backgroundColor : 'white',
+		backgroundColor : '#FDFDD9',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		chartArea:{left:100,bottom:20,width:"62%",height:"70%"},
 		legend: {position: 'none'}
@@ -39,7 +39,7 @@ function drawRightChart(){
 	var options = {
 		//height: 370,
 		width: 239,
-		backgroundColor : 'white',
+		backgroundColor : '#FDFDD9',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		showRowNumber: true,
 		firstRowNumber: 1
@@ -60,7 +60,7 @@ function drawCenterBottomChart(){
 		//height: 238,
 		width: 700,
 		fontSize : 10,
-		backgroundColor : 'white',
+		backgroundColor : '#FDFDD9',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
@@ -77,7 +77,7 @@ function drawCenterTopChart(){
 		fontSize: 10,
       	width: 700,
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
-		backgroundColor : 'white',
+		backgroundColor : '#FDFDD9',
       	colors: ["Black"],
       	candlestick:{risingColor: {stroke: "Blue",fill: "Blue", strokeWidth: 0}, fallingColor: {stroke: "Red", fill: "Red",strokeWidth: 0}},
       	legend: {position: 'none'}
@@ -96,7 +96,7 @@ function drawGenderChart(){
 		isStacked: true,
 		height: 250,
 		width:320,
-		backgroundColor : 'white',
+		backgroundColor : '#FDFDD9',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
