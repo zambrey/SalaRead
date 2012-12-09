@@ -1,3 +1,11 @@
 CS7450 Information Visualization Project
 
-Salary reader for Unversity System of Georgia
+Visualization tool for GeorgiaTech faculty salaries
+
+Technologies:
+
+HTML, CSS, Javascript
+
+Google Charts 
+
+Google Fusion Tables

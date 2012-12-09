@@ -27,6 +27,7 @@ var salaryMin = 10000;
 
 function init(){
 	drawMap();
+	initCharts();
     initMapExpenseValues();
 	initSlider();
 }

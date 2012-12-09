@@ -17,20 +17,6 @@
 <script type="text/javascript" src="InteractionHandlers.js"></script>
 <script type="text/javascript" src="DrawHandlers.js"></script>
 <script type="text/javascript" src="Utilities.js"></script>
-
- <script>
- var year="2011";
- google.load('visualization', '1', {packages: ['corechart']});
- google.load('visualization', '1', {packages: ['table']});
-	google.setOnLoadCallback(function() {
-    	drawCharts("2011");
-    	populateFiltersData("2011");
-	});
-	$(function() {
-		init();
-	});
-</script>
-
 </head>
 <body>
     <div id="container">
@@ -113,3 +99,15 @@ CS7450 SalaRead - Osborne, Noronha, Zambre, Zaveri <br>
 Data Source: <a href="http://www.open.georgia.gov/">open.georgia.gov</a> 
 </footer>
 </html>
+<script>
+ var year="2011";
+ google.load('visualization', '1', {packages: ['corechart']});
+ google.load('visualization', '1', {packages: ['table']});
+	google.setOnLoadCallback(function() {
+    	drawCharts("2011");
+    	populateFiltersData("2011");
+	});
+	$(function() {
+		init();
+	});
+</script>

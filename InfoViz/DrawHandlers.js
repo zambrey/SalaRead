@@ -7,6 +7,14 @@ var genderChart;
 var infoWindow=null;
 var markers  = [];
 
+function initCharts(){
+	leftChart = new google.visualization.BarChart(document.getElementById('left'));
+	rightChart = new google.visualization.Table(document.getElementById('right'));
+	centerBottomChart = new google.visualization.ColumnChart(document.getElementById('bottom'));
+	centerTopChart = new google.visualization.CandlestickChart(document.getElementById('top'));
+	genderChart = new google.visualization.BarChart(document.getElementById('gender'));
+}
+
 function drawLeftChart(){
 	var options = {
     	title: 'Average Salary by Title',
@@ -20,7 +28,6 @@ function drawLeftChart(){
 		chartArea:{left:100,bottom:20,width:"62%",height:"70%"},
 		legend: {position: 'none'}
     };
-	leftChart = new google.visualization.BarChart(document.getElementById('left'));
 	leftChart.draw(leftData, options);
 
 	
@@ -37,7 +44,6 @@ function drawRightChart(){
 		showRowNumber: true,
 		firstRowNumber: 1
 	};
-	rightChart = new google.visualization.Table(document.getElementById('right'));
 	var formatter = new google.visualization.NumberFormat({prefix: '$'});
   	formatter.format(rightData, 1); // Apply formatter to second column
     rightChart.draw(rightData, options);
@@ -59,7 +65,6 @@ function drawCenterBottomChart(){
 		legend: {position: 'none'}
     };
 
-	centerBottomChart = new google.visualization.ColumnChart(document.getElementById('bottom'));
 	centerBottomChart.draw(centerBottomData, options);
 }
 
@@ -78,7 +83,6 @@ function drawCenterTopChart(){
       	legend: {position: 'none'}
 	};
 
-	centerTopChart = new google.visualization.CandlestickChart(document.getElementById('top'));
 	centerTopChart.draw(centerTopData, options);
 	google.visualization.events.addListener(centerTopChart, 'onmouseover', rangeMouseOver);
     google.visualization.events.addListener(centerTopChart, 'onmouseout', rangeMouseOut);
@@ -96,7 +100,6 @@ function drawGenderChart(){
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
-	genderChart = new google.visualization.BarChart(document.getElementById('gender'));
 	genderChart.draw(genderData, options);
 }
 
