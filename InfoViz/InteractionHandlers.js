@@ -55,10 +55,6 @@ function tableSelected(e){
         genderIndex = genderData.getFilteredRows([{column:0, value: genderFull}]);
         if(genderIndex.length > 0)
           highlightInGenderChart(genderIndex[0]);
-
-        sessionStorage.clear();
-        sessionStorage.setItem(top10Data.getValue(index,0),'selectedPerson');
-        window.open("Personal.html","Employee Details","status=1,width=650,height=400,resizable=1");
       }
       else{
         rightChart.setSelection([{'row': null, 'column': null}]);
