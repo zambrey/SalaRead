@@ -13,6 +13,13 @@ function initCharts(){
 	centerBottomChart = new google.visualization.ColumnChart(document.getElementById('bottom'));
 	centerTopChart = new google.visualization.CandlestickChart(document.getElementById('top'));
 	genderChart = new google.visualization.BarChart(document.getElementById('gender'));
+
+	google.visualization.events.addListener(leftChart, 'onmouseover', barMouseOver);
+    google.visualization.events.addListener(leftChart, 'onmouseout', barMouseOut);
+    google.visualization.events.addListener(rightChart,'select',tableSelected);
+    //google.visualization.events.addListener(rightChart,'onmouseout',tableMouseOut);
+    google.visualization.events.addListener(centerTopChart, 'onmouseover', rangeMouseOver);
+    google.visualization.events.addListener(centerTopChart, 'onmouseout', rangeMouseOut);
 }
 
 function drawLeftChart(){
@@ -30,9 +37,6 @@ function drawLeftChart(){
     };
 	leftChart.draw(leftData, options);
 
-	
-	google.visualization.events.addListener(leftChart, 'onmouseover', barMouseOver);
-    google.visualization.events.addListener(leftChart, 'onmouseout', barMouseOut);
 }
 
 function drawRightChart(){
@@ -47,8 +51,8 @@ function drawRightChart(){
 	var formatter = new google.visualization.NumberFormat({prefix: '$'});
   	formatter.format(rightData, 1); // Apply formatter to second column
     rightChart.draw(rightData, options);
-	google.visualization.events.addListener(rightChart,'select',tableSelected);
-    //google.visualization.events.addListener(rightChart,'onmouseout',tableMouseOut);
+	
+    
 }
 
 function drawCenterBottomChart(){
@@ -84,8 +88,7 @@ function drawCenterTopChart(){
 	};
 
 	centerTopChart.draw(centerTopData, options);
-	google.visualization.events.addListener(centerTopChart, 'onmouseover', rangeMouseOver);
-    google.visualization.events.addListener(centerTopChart, 'onmouseout', rangeMouseOut);
+	
 }
 
 function drawGenderChart(){
