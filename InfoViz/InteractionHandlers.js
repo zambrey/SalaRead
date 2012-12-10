@@ -82,20 +82,24 @@ function tableSelected(e){
     }
 
 function rangeMouseOver(e) {
+  if(selectedTitle==""){
     var leftIndex = leftData.getFilteredRows([{column:0, value: centerTopData.getValue(e.row,0)}]);
     if (leftIndex.length > 0){
       /*Modify leftData*/
       highlightRowInLeftData(leftIndex[0]);
     }
-      //centerTopChart.setSelection([e]);
-      //leftChart.setSelection([e]);
-    }
+  }
+  //centerTopChart.setSelection([e]);
+  //leftChart.setSelection([e]);
+}
 
 function rangeMouseOut(e) {
+  if(selectedTitle==""){
       var leftIndex = leftData.getFilteredRows([{column:1, value: 0}]);
       if(leftIndex.length > 0){
         removeHighLightInLeftData(leftIndex[0]);
     }
+  }
       //centerTopChart.setSelection([{'row': null, 'column': null}]);
       //leftChart.setSelection([{'row': null, 'column': null}]);
     }
@@ -104,21 +108,24 @@ function barMouseOver(e) {
     //alert('Mouserover');
       //leftChart.setSelection([e]);
       //centerTopChart.highlightRow([e],false);
-      var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: leftData.getValue(e.row,0)}]);
-      if (centerTopIndex.length > 0){
-      highlightSeriesInCenterTopData(centerTopIndex[0]);
+  if(selectedTitle==""){
+    var centerTopIndex = centerTopData.getFilteredRows([{column:0, value: leftData.getValue(e.row,0)}]);
+    if (centerTopIndex.length > 0){
+        highlightSeriesInCenterTopData(centerTopIndex[0]);
     }
-    }
+  }
+}
 
-    function barMouseOut(e) {
+function barMouseOut(e) {
       /*var centerTopIndex = centerTopData.getFilteredRows([{column:1, value: 0},{column:2, value: 0},{column:3, value: 0},{column:4, value: 0}]);
       if(centerTopIndex.length > 0){
         removeHighlightInCenterTopData(centerTopIndex[0]);
       }*/
-      removeHighlightInCenterTopData();
+      if(selectedTitle=="")
+        removeHighlightInCenterTopData();
       //leftChart.setSelection([{'row': null, 'column': null}]);
       //centerTopChart.setSelection([{'row': null, 'column': null}]);
-    }
+}
 
 
 function highlightRowInLeftData(rowInd){
@@ -144,8 +151,8 @@ function highlightRowInLeftData(rowInd){
 
 function removeHighLightInLeftData(rowInd){
   leftData.setValue(rowInd,1,leftData.getValue(rowInd,2));
-    leftData.setValue(rowInd,2,0);
-    drawLeftChart();
+  leftData.setValue(rowInd,2,0);
+  drawLeftChart();
 }
 
 function highlightInGenderChart(rowInd){
