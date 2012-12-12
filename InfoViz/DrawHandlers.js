@@ -35,6 +35,8 @@ function drawLeftChart(){
 		chartArea:{left:100,bottom:20,width:"62%",height:"70%"},
 		legend: {position: 'none'}
     };
+    var formatter = new google.visualization.NumberFormat({prefix: '$'});
+    	formatter.format(leftData, 1); // Apply formatter to second column
 	leftChart.draw(leftData, options);
 
 }
@@ -68,7 +70,8 @@ function drawCenterBottomChart(){
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
-
+    var formatter = new google.visualization.NumberFormat({prefix: '$'});
+    	formatter.format(centerBottomData, 1); // Apply formatter to second column
 	centerBottomChart.draw(centerBottomData, options);
 }
 
@@ -103,6 +106,8 @@ function drawGenderChart(){
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		legend: {position: 'none'}
     };
+    var formatter = new google.visualization.NumberFormat({prefix: '$'});
+    	formatter.format(genderData, 1); // Apply formatter to second column
 	genderChart.draw(genderData, options);
 }
 
