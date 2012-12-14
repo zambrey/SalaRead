@@ -1,16 +1,17 @@
 var query;
 var data;
-var message;
-
-/*
-function init() {
-  drawTreeMap();
-}*/
 
 var key1 = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E";
-var sheet;
 var querytext1;
 
+var title2011Key = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1";
+var dept2011Key;
+var title2010Key;
+var dept2010Key;
+var title2009Key;
+var dept2009Key;
+var title2008Key;
+var dept2008Key;
 
 // make the tooltip div follow the mouse
 $(function () {
@@ -24,7 +25,12 @@ $(function () {
 
 
 google.load("visualization", "1", {packages:["treemap"]});
-google.setOnLoadCallback(function() {drawTreeMap(key1)});
+//google.setOnLoadCallback(function() {drawTreeMap(key1)});
+google.setOnLoadCallback(function() {drawMaps(title2011Key)});
+
+function drawMaps(title2011) {
+  drawTreeMap(title2011);
+}
 
 // treemap options
 var options = {
@@ -55,9 +61,9 @@ var options = {
   };
 
 function drawTreeMap(sheet) {
-    var queryText1 = sheet + "&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1";
+    //var queryText1 = sheet + "&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1";
     //queryText1 = encodeURIComponent(queryText1);
-    var query = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + queryText1);
+    var query = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + sheet);
     //var query = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + key1 + "&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1");
 
     // Send the query with a callback function.
