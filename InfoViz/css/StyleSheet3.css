@@ -150,3 +150,17 @@ button
 	width: 10%;
 }
 
+#tooltip {
+    display: none;
+    position: absolute;
+    height: auto;
+    width: auto;
+    background-color: #FFFFFF;
+    padding: 5px;
+}
+#tooltipTopLine {
+    font-weight: bold;
+}
+#tooltipBottomLine {
+    
+}​
