@@ -1,5 +1,5 @@
 var query;
-var data;
+var title2011Data;
 
 var key1 = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E";
 var querytext1;
@@ -22,7 +22,6 @@ $(function () {
         });
     });
 });
-
 
 google.load("visualization", "1", {packages:["treemap"]});
 //google.setOnLoadCallback(function() {drawTreeMap(key1)});
@@ -76,16 +75,21 @@ function drawTreeMap(sheet) {
       return;
     }
 
-    data = response.getDataTable();
+    title2011data = response.getDataTable();
     
     visualization = new google.visualization.TreeMap(document.getElementById('2011-bytitle'));
-    visualization.draw(data, options);
+    visualization.draw(title2011data, options);
     google.visualization.events.addListener(visualization, 'select', selectHandler);
+    document.getElementById('goUp').disabled = true;
+    document.getElementById('goUp').onclick = function () {
+      visualization.goUpAndDraw();
+      document.getElementById('goUp').disabled = true;
+    };
     // hover window
     google.visualization.events.addListener(visualization, 'onmouseover', function (e) {
-        var name = data.getValue(e.row, 0);
+        var name = title2011data.getValue(e.row, 0);
         // format currency
-        var salary = addCommas(parseFloat(data.getValue(e.row, 2).toFixed(2)));
+        var salary = addCommas(parseFloat(title2011data.getValue(e.row, 2).toFixed(2)));
         
         // populate the tooltip with data
         $('#tooltipTopLine').html(name);
@@ -104,11 +108,16 @@ function selectHandler() {
   var item = selection[0]
   if(item.row > 8)
     {
-      var name = data.getValue(item.row, 0);
+      var name = title2011data.getValue(item.row, 0);
       sessionStorage.clear();
       sessionStorage.setItem(name,'selectedPerson');
       // Open in a pop-up window
       window.open("Personal.html","Employee Details","status=1,width=650,height=400,resizable=1");
+    }
+  // Don't enable button at root level  
+  else if (item.row > 0)
+    {
+      document.getElementById('goUp').disabled = false;
     }
   }
 
