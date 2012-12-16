@@ -409,6 +409,14 @@ function changeTreeMap(year){
 		$('#2010-bydept').hide();
 		$('#2009-bytitle').hide();
 		$('#2009-bydept').hide();
+		$('#goUp-title2011').hide();
+		$('#goUp-dept2011').hide();
+		$('#goUp-title2008').show();
+		$('#goUp-dept2008').show();
+		$('#goUp-title2010').hide();
+		$('#goUp-dept2010').hide();
+		$('#goUp-title2009').hide();
+		$('#goUp-dept2009').hide();
 	}
 	if(year == "2009"){
 		$('#2009-bytitle').show();
@@ -419,6 +427,14 @@ function changeTreeMap(year){
 		$('#2010-bydept').hide();
 		$('#2008-bytitle').hide();
 		$('#2008-bydept').hide();
+		$('#goUp-title2011').hide();
+		$('#goUp-dept2011').hide();
+		$('#goUp-title2008').hide();
+		$('#goUp-dept2008').hide();
+		$('#goUp-title2010').hide();
+		$('#goUp-dept2010').hide();
+		$('#goUp-title2009').show();
+		$('#goUp-dept2009').show();
 	}
 	if(year == "2010"){
 		$('#2010-bytitle').show();
@@ -429,6 +445,14 @@ function changeTreeMap(year){
 		$('#2008-bydept').hide();
 		$('#2009-bytitle').hide();
 		$('#2009-bydept').hide();
+		$('#goUp-title2011').hide();
+		$('#goUp-dept2011').hide();
+		$('#goUp-title2008').hide();
+		$('#goUp-dept2008').hide();
+		$('#goUp-title2010').show();
+		$('#goUp-dept2010').show();
+		$('#goUp-title2009').hide();
+		$('#goUp-dept2009').hide();
 	}
 	if(year == "2011"){
 		$('#2011-bytitle').show();
@@ -439,5 +463,13 @@ function changeTreeMap(year){
 		$('#2010-bydept').hide();
 		$('#2009-bytitle').hide();
 		$('#2009-bydept').hide();
+		$('#goUp-title2011').show();
+		$('#goUp-dept2011').show();
+		$('#goUp-title2008').hide();
+		$('#goUp-dept2008').hide();
+		$('#goUp-title2010').hide();
+		$('#goUp-dept2010').hide();
+		$('#goUp-title2009').hide();
+		$('#goUp-dept2009').hide();
 	}
 }

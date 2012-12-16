@@ -35,8 +35,6 @@ a.button2008, a.button2009, a.button2010 {
 	background-image: url("button.png");
 	padding: 4px 57px 3px;
 }
-
- 
  
 
 div #container{
@@ -67,14 +65,14 @@ div #search a #mainPage
 	float:right;
 }
 
-div #2011-bydept
+div #2011-bydept, #2010-bydept, #2009-bydept, #2008-bydept
 {
-	margin: 0 auto 0;
+	margin: 20px 5px 5px;
 	height: 400px;
 	width: 948px;
 }
 
-div #2011-bytitle
+div #2011-bytitle, #2010-bytitle, #2009-bytitle, #2008-bytitle
 {
 	margin: 0 auto 0;
 	height: 400px;
@@ -163,3 +161,25 @@ button
 }
 #tooltipBottomLine-title2011, #tooltipBottomLine-dept2011, #tooltipBottomLine-title2010, #tooltipBottomLine-dept2010, #tooltipBottomLine-title2009, #tooltipBottomLine-dept2009, #tooltipBottomLine-title2008, #tooltipBottomLine-dept2008 {
 }​
+
+.title {
+  margin: 0 auto 0; 
+  height: 400px;
+  width: 948px; 
+  background:url(images/spinner.gif) center center no-repeat;
+}
+
+.dept {
+  margin: 20px 5px 5px; 
+  height: 400px;
+  width: 948px; 
+  background:url(images/spinner.gif) center center no-repeat;
+}
+
+.goUp {
+  float: right;
+}
+div #goUp-title2011, #goUp-dept2011, #goUp-title2010, #goUp-dept2010, #goUp-title2009, #goUp-dept2009, #goUp-title2008, #goUp-dept2008{
+    float: right;
+    padding-right: 10px;
+}
