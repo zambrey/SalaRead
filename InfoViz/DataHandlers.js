@@ -18,15 +18,27 @@ function leftCallBack(response){
 }
 
 function rightCallBack(response){
-	if (response.isError()) {
+	/*if (response.isError()) {
 		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 		return;
-	}
-	top10Data = response.getDataTable();
+	}*/
+	//top10Data = response.getDataTable();
+	top10Data = new google.visualization.DataTable();
+	top10Data.addColumn('string','Name');
+	top10Data.addColumn('string','Title');
+	top10Data.addColumn('string','Department');
+	top10Data.addColumn('number','Salary');
+	top10Data.addColumn('string','Gender');
 	rightData = new google.visualization.DataTable();
 //	rightData.addColumn('number','#');
 	rightData.addColumn('string','Name');
 	rightData.addColumn('number','Salary');
+	var rows = response['rows'];
+	top10Data.addRows(rows.length);
+	for (var i=0; i<rows.length; i++) {
+		for(var j=0; j<5; j++)
+			top10Data.setValue(i,j,rows[i][j]);
+	}
 	rightData.addRows(top10Data.getNumberOfRows());
 	for(var i=0; i<top10Data.getNumberOfRows(); i++){
 		//rightData.setValue(i,0,i+1);

@@ -88,11 +88,25 @@ function drawCharts(){
 	}
 
 	/*Top 10*/
-	var queryText3 = "SELECT Name, Title, Department, Salary, Gender FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" ORDER BY Salary DESC LIMIT 10";
+	var queryText3 = "SELECT Name, Title, Department, Salary, Gender FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" ORDER BY Salary DESC";
 	queryText3 = encodeURIComponent(queryText3);
-	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
-	query.send(rightCallBack);
+	//var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText3);
+	//query.send(rightCallBack);
 
+	var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+    url.push('?sql=' + queryText3);
+    url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+    url.push('&callback=?');
+	// Get the variables from the table, in a loop
+	var availableTags = new Array();
+	$.ajax({
+		url: url.join(''),
+		dataType: 'jsonp',
+		success: function (data) {
+			rightCallBack(data);
+		}
+	});
+	
 	/*Sal range by title*/
 	if(selectedTitle==""){
 		var queryText4 = "SELECT Title, MINIMUM(Salary), AVERAGE(Salary), AVERAGE(Salary), MAXIMUM(Salary) FROM "+gatechTableID+" WHERE "+ buildWhereClause() +" GROUP BY Title ORDER BY Title ASC";
@@ -109,17 +123,17 @@ function drawCharts(){
 }
 
 
-function populateFiltersData(year){
-	fetchAutocompleteData(year);
+function populateFiltersData(){
+	fetchAutocompleteData();
 
 	/*Populate browse dept*/
-	var queryText6 = "SELECT Department FROM "+gatechTableID+" WHERE Year="+year +" GROUP BY Department";
+	var queryText6 = "SELECT Department FROM "+gatechTableID+" WHERE Year="+selectedYear+" GROUP BY Department";
 	queryText6 = encodeURIComponent(queryText6);
 	var query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateDeptCallBack);
 
 	/*Populate browse title*/
-	queryText6 = "SELECT Title FROM "+gatechTableID+" WHERE Year="+year +" GROUP BY Title";
+	queryText6 = "SELECT Title FROM "+gatechTableID+" WHERE Year="+selectedYear+" GROUP BY Title";
 	queryText6 = encodeURIComponent(queryText6);
 	query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq=' + queryText6);
 	query.send(populateTitleCallBack);
@@ -179,8 +193,8 @@ function changeYear(year){
 	selectedYear = year;
 	clearAllSelections();
 	initMapExpenseValues();	/*Eventually calls initMapLocations*/
-	drawCharts(year);
-	populateFiltersData(year);
+	drawCharts();
+	populateFiltersData();
 	 	$("a.button2008, a.button2009, a.button2010, a.button2011").css({
 			'color': 'rgba(0,0,0,0.6)',
   			'text-decoration': 'none',
@@ -276,8 +290,8 @@ function buildWhereClause(){
 	return clause;
 }
 
-function fetchAutocompleteData(year){
-	var queryText5 = "SELECT Name FROM "+gatechTableID+" WHERE Year="+year;
+function fetchAutocompleteData(){
+	var queryText5 = "SELECT Name FROM "+gatechTableID+" WHERE Year="+selectedYear;
 	// Construct the URL to grab the data
 	queryText5 = encodeURIComponent(queryText5);
     var url = ['https://www.googleapis.com/fusiontables/v1/query'];

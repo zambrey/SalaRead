@@ -43,12 +43,12 @@ function drawLeftChart(){
 
 function drawRightChart(){
 	var options = {
-		//height: 370,
-		width: 239,
+		height: 300,
+		width: 302,
 		backgroundColor : '#FDFDD9',
 		titleTextStyle: {color: 'black', fontName: 'Calibri', fontSize: 14},
 		showRowNumber: true,
-		firstRowNumber: 1
+		firstRowNumber: 1,
 	};
 	var formatter = new google.visualization.NumberFormat({prefix: '$'});
   	formatter.format(rightData, 1); // Apply formatter to second column

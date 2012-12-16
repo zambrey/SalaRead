@@ -132,8 +132,8 @@ function highlightRowInLeftData(rowInd){
   var tempData = new google.visualization.DataTable();
   tempData.addRows(leftData.getNumberOfRows());
   tempData.addColumn('string','Title');
-  tempData.addColumn('number','Salary');
-  tempData.addColumn('number','Selected');
+  tempData.addColumn('number','Average Salary');
+  tempData.addColumn('number','Average Salary');
   for(var i=0; i<leftData.getNumberOfRows(); i++){
     tempData.setValue(i,0,leftData.getValue(i,0));
     if(i==rowInd){
@@ -146,6 +146,8 @@ function highlightRowInLeftData(rowInd){
     }
   }
   leftData = tempData;
+  var formatter = new google.visualization.NumberFormat({prefix: '$'});
+      formatter.format(leftData, 2); // Apply formatter to second column
   drawLeftChart();  
 }
 
@@ -159,8 +161,8 @@ function highlightInGenderChart(rowInd){
   var tempData = new google.visualization.DataTable();
   tempData.addRows(genderData.getNumberOfRows());
   tempData.addColumn('string','Gender');
-  tempData.addColumn('number','Salary');
-  tempData.addColumn('number','Salary');
+  tempData.addColumn('number','Average Salary');
+  tempData.addColumn('number','Average Salary');
   for(var i=0; i<genderData.getNumberOfRows(); i++){
     tempData.setValue(i,0,genderData.getValue(i,0));
     if(i==rowInd){
@@ -173,6 +175,8 @@ function highlightInGenderChart(rowInd){
     }
   }
   genderData = tempData;
+  var formatter = new google.visualization.NumberFormat({prefix: '$'});
+      formatter.format(genderData, 2); // Apply formatter to second column
   drawGenderChart();  
 }
 
@@ -212,8 +216,8 @@ function highlightColumnInCenterBottomData(rowInd){
   var tempData = new google.visualization.DataTable();
   tempData.addRows(centerBottomData.getNumberOfRows());
   tempData.addColumn('string','Department');
-  tempData.addColumn('number','Average');
-  tempData.addColumn('number','Selected');
+  tempData.addColumn('number','Average Salary');
+  tempData.addColumn('number','Average Salary');
   for(var i=0; i<centerBottomData.getNumberOfRows(); i++){
     tempData.setValue(i,0,centerBottomData.getValue(i,0));
     if(i==rowInd){
@@ -225,7 +229,9 @@ function highlightColumnInCenterBottomData(rowInd){
       tempData.setValue(i,2,0);
     }
   }
-  centerBottomData = tempData;  
+  centerBottomData = tempData;
+  var formatter = new google.visualization.NumberFormat({prefix: '$'});
+      formatter.format(centerBottomData, 2); // Apply formatter to second column  
   drawCenterBottomChart();
 }
 
