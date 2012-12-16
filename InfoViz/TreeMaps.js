@@ -10,16 +10,16 @@ var dept2008Data;
 
 var title2011Key = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1066&gid=7&pub=1";
 var dept2011Key = "0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1099&gid=5&pub=1";
-var title2010Key;
-var dept2010Key;
-var title2009Key;
-var dept2009Key;
-var title2008Key;
-var dept2008Key;
+var title2010Key = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1055&gid=6&pub=1";
+var dept2010Key = "0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1088&gid=4&pub=1";
+var title2009Key = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1068&gid=5&pub=1";
+var dept2009Key = "0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1101&gid=3&pub=1";
+var title2008Key = "0Aihk8d-ie1rgdFR4Z0x3YXJHOUhSdHVOY2cybFNXQ0E&transpose=0&headers=1&range=A1%3AD1066&gid=4&pub=1";
+var dept2008Key = "0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&headers=1&range=A1%3AD1099&gid=2&pub=1";
 
 // make the tooltip div follow the mouse
 $(function () {
-    $('#2011-bytitle').mousemove(function (e) {
+/*    $('#2011-bytitle').mousemove(function (e) {
         $('#tooltip').css({
             left: e.pageX + 3,
             top: e.pageY - 50
@@ -30,9 +30,55 @@ $(function () {
             left: e.pageX + 3,
             top: e.pageY - 50
         });
+    }); */
+    positionTooltip ('#2011-bytitle','title2011');
+    positionTooltip ('#2011-bydept','dept2011');
+    $('#2010-bytitle').mousemove(function (e) {
+        $('#tooltip-title2010').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
     });
-    
+    $('#2010-bydept').mousemove(function (e) {
+        $('#tooltip-dept2010').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
+    $('#2009-bytitle').mousemove(function (e) {
+        $('#tooltip-title2009').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
+    $('#2009-bydept').mousemove(function (e) {
+        $('#tooltip-dept2009').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
+    $('#2008-bytitle').mousemove(function (e) {
+        $('#tooltip-title2008').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
+    $('#2008-bydept').mousemove(function (e) {
+        $('#tooltip-dept2008').css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
 });
+
+function positionTooltip (divName, divSuffix) {
+   $(divName).mousemove(function (e) {
+        $('#tooltip-' + divSuffix).css({
+            left: e.pageX + 3,
+            top: e.pageY - 50
+        });
+    });
+}
 
 google.load("visualization", "1", {packages:["treemap"]});
 google.setOnLoadCallback(function() {drawTreeMaps()});
@@ -147,14 +193,14 @@ function title2011Callback(response) {
         var salary = addCommas(parseFloat(title2011Data.getValue(e.row, 2).toFixed(2)));
         
         // populate the tooltip with data
-        $('#tooltipTopLine').html(name);
-        $('#tooltipBottomLine').html("$" + salary);
+        $('#tooltipTopLine-title2011').html(name);
+        $('#tooltipBottomLine-title2011').html("$" + salary);
         // show the tooltip
-        $('#tooltip').show();
+        $('#tooltip-title2011').show();
     });
     google.visualization.events.addListener(visualization, 'onmouseout', function (e) {
         // hide the tooltip
-        $('#tooltip').hide();
+        $('#tooltip-title2011').hide();
     });
 }
 

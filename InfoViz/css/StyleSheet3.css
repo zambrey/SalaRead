@@ -150,7 +150,7 @@ button
 	width: 10%;
 }
 
-#tooltip, #tooltip-dept2011 {
+#tooltip-title2011, #tooltip-dept2011 {
     display: none;
     position: absolute;
     height: auto;
@@ -158,9 +158,9 @@ button
     background-color: #FFFFFF;
     padding: 5px;
 }
-#tooltipTopLine, #tooltipTopLine-dept2011 {
+#tooltipTopLine-title2011, #tooltipTopLine-dept2011 {
     font-weight: bold;
 }
-#tooltipBottomLine, #tooltipBottomLine-dept2011 {
+#tooltipBottomLine-title2011, #tooltipBottomLine-dept2011 {
     
 }​
