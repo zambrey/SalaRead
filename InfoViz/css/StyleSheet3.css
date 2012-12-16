@@ -150,7 +150,7 @@ button
 	width: 10%;
 }
 
-#tooltip-title2011, #tooltip-dept2011 {
+#tooltip-title2011, #tooltip-dept2011, #tooltip-title2010, #tooltip-dept2010, #tooltip-title2009, #tooltip-dept2009, #tooltip-title2008, #tooltip-dept2008 {
     display: none;
     position: absolute;
     height: auto;
@@ -158,9 +158,8 @@ button
     background-color: #FFFFFF;
     padding: 5px;
 }
-#tooltipTopLine-title2011, #tooltipTopLine-dept2011 {
+#tooltipTopLine-title2011, #tooltipTopLine-dept2011, #tooltipTopLine-title2010, #tooltipTopLine-dept2010, #tooltipTopLine-title2009, #tooltipTopLine-dept2009, #tooltipTopLine-title2008, #tooltipTopLine-dept2008 {
     font-weight: bold;
 }
-#tooltipBottomLine-title2011, #tooltipBottomLine-dept2011 {
-    
+#tooltipBottomLine-title2011, #tooltipBottomLine-dept2011, #tooltipBottomLine-title2010, #tooltipBottomLine-dept2010, #tooltipBottomLine-title2009, #tooltipBottomLine-dept2009, #tooltipBottomLine-title2008, #tooltipBottomLine-dept2008 {
 }​

@@ -19,56 +19,15 @@ var dept2008Key = "0Aihk8d-ie1rgdGNmWGw2YnVrZXFaaExwbmdvS3liN1E&transpose=0&head
 
 // make the tooltip div follow the mouse
 $(function () {
-/*    $('#2011-bytitle').mousemove(function (e) {
-        $('#tooltip').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2011-bydept').mousemove(function (e) {
-        $('#tooltip-dept2011').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    }); */
+  // First item is div name, second is div suffix
     positionTooltip ('#2011-bytitle','title2011');
     positionTooltip ('#2011-bydept','dept2011');
-    $('#2010-bytitle').mousemove(function (e) {
-        $('#tooltip-title2010').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2010-bydept').mousemove(function (e) {
-        $('#tooltip-dept2010').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2009-bytitle').mousemove(function (e) {
-        $('#tooltip-title2009').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2009-bydept').mousemove(function (e) {
-        $('#tooltip-dept2009').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2008-bytitle').mousemove(function (e) {
-        $('#tooltip-title2008').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
-    $('#2008-bydept').mousemove(function (e) {
-        $('#tooltip-dept2008').css({
-            left: e.pageX + 3,
-            top: e.pageY - 50
-        });
-    });
+    positionTooltip ('#2010-bytitle','title2010');
+    positionTooltip ('#2010-bydept','dept2010');
+    positionTooltip ('#2009-bytitle','title2009');
+    positionTooltip ('#2009-bydept','dept2009');
+    positionTooltip ('#2008-bytitle','title2008');
+    positionTooltip ('#2008-bydept','dept2008');
 });
 
 function positionTooltip (divName, divSuffix) {
@@ -82,14 +41,6 @@ function positionTooltip (divName, divSuffix) {
 
 google.load("visualization", "1", {packages:["treemap"]});
 google.setOnLoadCallback(function() {drawTreeMaps()});
-//google.setOnLoadCallback(function() {drawTreeMap(key1)});
-/*google.setOnLoadCallback(function() {drawMaps(title2011Key,dept2011Key)});
-
-function drawMaps(title2011,dept2011) {
-  drawTitle2011Map(title2011);
-  drawDept2011Map(dept2011);
-//  drawTreeMap(dept2011);
-}*/
 
 function drawTreeMaps(){
     var query1 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2011Key);
@@ -100,7 +51,6 @@ function drawTreeMaps(){
     // Send the query with a callback function.
     query2.send(dept2011Callback);
 }
-
 
 // treemap options
 var titleOptions = {
@@ -157,18 +107,6 @@ var deptOptions = {
     "chartName":"Chart 1"
     };
 
-function drawTitle2011Map(key) {
-    var query = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + key);
-    // Send the query with a callback function.
-    query.send(title2011Callback);
-}
-  
-function drawDept2011Map(key) {
-    var query = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + key);
-    // Send the query with a callback function.
-    query.send(dept2011Callback);
-}
-
 function title2011Callback(response) {
     if (response.isError()) {
       alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
@@ -187,21 +125,25 @@ function title2011Callback(response) {
       document.getElementById('goUp').disabled = true;
     };
     // hover window
-    google.visualization.events.addListener(visualization, 'onmouseover', function (e) {
-        var name = title2011Data.getValue(e.row, 0);
-        // format currency
-        var salary = addCommas(parseFloat(title2011Data.getValue(e.row, 2).toFixed(2)));
-        
-        // populate the tooltip with data
-        $('#tooltipTopLine-title2011').html(name);
-        $('#tooltipBottomLine-title2011').html("$" + salary);
-        // show the tooltip
-        $('#tooltip-title2011').show();
-    });
-    google.visualization.events.addListener(visualization, 'onmouseout', function (e) {
-        // hide the tooltip
-        $('#tooltip-title2011').hide();
-    });
+    addTooltip (visualization,title2011Data,'title2011');
+}
+
+function addTooltip (visualizationName,dataName,divSuffix) {
+  google.visualization.events.addListener(visualizationName, 'onmouseover', function (e) {
+      var name = dataName.getValue(e.row, 0);
+      // format currency
+      var salary = addCommas(parseFloat(dataName.getValue(e.row, 2).toFixed(2)));
+      
+      // populate the tooltip with data
+      $('#tooltipTopLine-' + divSuffix).html(name);
+      $('#tooltipBottomLine-' + divSuffix).html("$" + salary);
+      // show the tooltip
+      $('#tooltip-' + divSuffix).show();
+  });
+  google.visualization.events.addListener(visualizationName, 'onmouseout', function (e) {
+      // hide the tooltip
+      $('#tooltip-' + divSuffix).hide();
+  });
 }
 
 function dept2011Callback(response) {
@@ -221,23 +163,7 @@ function dept2011Callback(response) {
       dept2011.goUpAndDraw();
       document.getElementById('goUp-dept2011').disabled = true;
     };
-    
-    // hover window
-    google.visualization.events.addListener(dept2011, 'onmouseover', function (e) {
-        var name = dept2011Data.getValue(e.row, 0);
-        // format currency
-        var salary = addCommas(parseFloat(dept2011Data.getValue(e.row, 2).toFixed(2)));
-        
-        // populate the tooltip with data
-        $('#tooltipTopLine-dept2011').html(name);
-        $('#tooltipBottomLine-dept2011').html("$" + salary);
-        // show the tooltip
-        $('#tooltip-dept2011').show();
-    });
-    google.visualization.events.addListener(dept2011, 'onmouseout', function (e) {
-        // hide the tooltip
-        $('#tooltip-dept2011').hide();
-    });
+    addTooltip (dept2011,dept2011Data,'dept2011');
 }
 
 function selectHandler() {
