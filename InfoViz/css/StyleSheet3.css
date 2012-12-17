@@ -146,7 +146,7 @@ button
     position: absolute;
     height: auto;
     width: auto;
-    background-color: #FFFFFF;
+    background-color: rgb(247,247,236);
     padding: 5px;
 }
 #tooltipTopLine-title2011, #tooltipTopLine-dept2011, #tooltipTopLine-title2010, #tooltipTopLine-dept2010, #tooltipTopLine-title2009, #tooltipTopLine-dept2009, #tooltipTopLine-title2008, #tooltipTopLine-dept2008 {

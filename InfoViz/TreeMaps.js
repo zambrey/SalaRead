@@ -49,57 +49,8 @@ function positionTooltip (divName, divSuffix) {
 
 google.load("visualization", "1", {packages:["treemap"]});
 google.setOnLoadCallback(function() {drawTreeMaps()});
-//google.setOnLoadCallback(function() {initializeTreeMaps()});
-
-function initializeTreeMaps() {
-  drawTreeMaps();
-  changeTreeMap("2011");
-  fetchAutocompleteData("2011");
-}
-
-/*$(function() {
-	//changeTreeMap("2011");
-	fetchAutocompleteData("2011");
-});*/
-/*
-function drawTreeMaps(){
-  switch (year) {
-    case 2011:
-      var query1 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2011Key);
-      query1.send(title2011Callback);
-    
-      var query2 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2011Key);
-      query2.send(dept2011Callback);
-      break;
-    
-    case 2010:
-      var query3 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2010Key);
-      query3.send(title2010Callback);
-    
-      var query4 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2010Key);
-      query4.send(dept2010Callback);
-      break;
-    
-    case 2009:
-      var query5 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2009Key);
-      query5.send(title2009Callback);
-    
-      var query6 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2009Key);
-      query6.send(dept2009Callback);
-      break;
-    
-    case 2008:
-      var query7 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2008Key);
-      query7.send(title2008Callback);
-    
-      var query8 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2008Key);
-      query8.send(dept2008Callback); 
-      break;
-  }
-}*/
 
 function drawTreeMaps(){
-    showHideMaps();
     
     var query1 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2011Key);
     query1.send(title2011Callback);
@@ -124,14 +75,6 @@ function drawTreeMaps(){
     
     var query8 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2008Key);
     query8.send(dept2008Callback); 
-}
-
-function showHideMaps(){
-  $("#2010-bytitle, #2010-bydept").css({
-    'position': 'absolute',
-    'left': '-2000px',
-		//'padding': '4px 57px 3px'
-	});
 }
 
 // treemap options
@@ -245,10 +188,6 @@ function title2010Callback(response) {
     // hover window - visName, dataName, divSuffix
     addTooltip (title2010,title2010Data,title2010Div);
 }
-/*
-function hideMap() {
-  $('#2010-bytitle').hide();
-}*/
 
 function dept2010Callback(response) {
     if (response.isError()) {
@@ -537,12 +476,3 @@ function changeTreeMap(year){
 		$('#goUp-dept2009').hide();
 	}
 }
-
-(function($) {
-    $.fn.invisible = function() {
-        return this.css("visibility", "hidden");
-    };
-    $.fn.visible = function() {
-        return this.css("visibility", "visible");
-    };
-})(jQuery);
