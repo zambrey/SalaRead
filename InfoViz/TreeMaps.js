@@ -49,8 +49,58 @@ function positionTooltip (divName, divSuffix) {
 
 google.load("visualization", "1", {packages:["treemap"]});
 google.setOnLoadCallback(function() {drawTreeMaps()});
+//google.setOnLoadCallback(function() {initializeTreeMaps()});
+
+function initializeTreeMaps() {
+  drawTreeMaps();
+  changeTreeMap("2011");
+  fetchAutocompleteData("2011");
+}
+
+/*$(function() {
+	//changeTreeMap("2011");
+	fetchAutocompleteData("2011");
+});*/
+/*
+function drawTreeMaps(){
+  switch (year) {
+    case 2011:
+      var query1 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2011Key);
+      query1.send(title2011Callback);
+    
+      var query2 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2011Key);
+      query2.send(dept2011Callback);
+      break;
+    
+    case 2010:
+      var query3 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2010Key);
+      query3.send(title2010Callback);
+    
+      var query4 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2010Key);
+      query4.send(dept2010Callback);
+      break;
+    
+    case 2009:
+      var query5 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2009Key);
+      query5.send(title2009Callback);
+    
+      var query6 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2009Key);
+      query6.send(dept2009Callback);
+      break;
+    
+    case 2008:
+      var query7 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2008Key);
+      query7.send(title2008Callback);
+    
+      var query8 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2008Key);
+      query8.send(dept2008Callback); 
+      break;
+  }
+}*/
 
 function drawTreeMaps(){
+    showHideMaps();
+    
     var query1 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + title2011Key);
     query1.send(title2011Callback);
     
@@ -74,6 +124,14 @@ function drawTreeMaps(){
     
     var query8 = new google.visualization.Query("http://spreadsheets.google.com/tq?key=" + dept2008Key);
     query8.send(dept2008Callback); 
+}
+
+function showHideMaps(){
+  $("#2010-bytitle, #2010-bydept").css({
+    'position': 'absolute',
+    'left': '-2000px',
+		//'padding': '4px 57px 3px'
+	});
 }
 
 // treemap options
@@ -175,6 +233,7 @@ function title2010Callback(response) {
     }
     title2010Data = response.getDataTable();
     title2010 = new google.visualization.TreeMap(document.getElementById('2010-bytitle'));
+//    google.visualization.events.addListener(title2010, 'ready', hideMap);
     title2010.draw(title2010Data, titleOptions);
     google.visualization.events.addListener(title2010, 'select', function () {titleSelectHandler (title2010,title2010Data,title2010Div)});
     // Go up button
@@ -186,6 +245,10 @@ function title2010Callback(response) {
     // hover window - visName, dataName, divSuffix
     addTooltip (title2010,title2010Data,title2010Div);
 }
+/*
+function hideMap() {
+  $('#2010-bytitle').hide();
+}*/
 
 function dept2010Callback(response) {
     if (response.isError()) {
@@ -333,6 +396,7 @@ function addTooltip (visualizationName,dataName,divSuffix) {
 }
 
 function changeTreeMap(year){
+    //drawTreeMaps(year);
 		$("a.button2008, a.button2009, a.button2010, a.button2011").css({
 			'color': 'rgba(0,0,0,0.6)',
   			'text-decoration': 'none',
@@ -400,52 +464,34 @@ function changeTreeMap(year){
 			'padding': '4px 57px 3px'                        
 		});
 		
-	if(year == "2008"){
-		$('#2008-bytitle').show();
-		$('#2008-bydept').show();
-		$('#2011-bytitle').hide();
-		$('#2011-bydept').hide();
-		$('#2010-bytitle').hide();
-		$('#2010-bydept').hide();
-		$('#2009-bytitle').hide();
-		$('#2009-bydept').hide();
-		$('#goUp-title2011').hide();
-		$('#goUp-dept2011').hide();
-		$('#goUp-title2008').show();
-		$('#goUp-dept2008').show();
+	if(year == "2011"){
+  	$('#2011-bytitle, #2011-bydept').css({
+      'position': 'relative',
+      'left': '0',
+  	});	  
+  	$('#2010-bytitle, #2010-bydept, #2009-bytitle, #2009-bydept, #2008-bytitle, #2008-bydept').css({
+      'position': 'absolute',
+      'left': '-2000px',
+  	});
+  	$('#goUp-title2011').show();
+		$('#goUp-dept2011').show();
 		$('#goUp-title2010').hide();
 		$('#goUp-dept2010').hide();
 		$('#goUp-title2009').hide();
 		$('#goUp-dept2009').hide();
-	}
-	if(year == "2009"){
-		$('#2009-bytitle').show();
-		$('#2009-bydept').show();
-		$('#2011-bytitle').hide();
-		$('#2011-bydept').hide();
-		$('#2010-bytitle').hide();
-		$('#2010-bydept').hide();
-		$('#2008-bytitle').hide();
-		$('#2008-bydept').hide();
-		$('#goUp-title2011').hide();
-		$('#goUp-dept2011').hide();
 		$('#goUp-title2008').hide();
 		$('#goUp-dept2008').hide();
-		$('#goUp-title2010').hide();
-		$('#goUp-dept2010').hide();
-		$('#goUp-title2009').show();
-		$('#goUp-dept2009').show();
 	}
 	if(year == "2010"){
-		$('#2010-bytitle').show();
-		$('#2010-bydept').show();
-		$('#2011-bytitle').hide();
-		$('#2011-bydept').hide();
-		$('#2008-bytitle').hide();
-		$('#2008-bydept').hide();
-		$('#2009-bytitle').hide();
-		$('#2009-bydept').hide();
-		$('#goUp-title2011').hide();
+  	$('#2010-bytitle, #2010-bydept').css({
+      'position': 'relative',
+      'left': '0',
+  	});	  
+  	$('#2011-bytitle, #2011-bydept, #2009-bytitle, #2009-bydept, #2008-bytitle, #2008-bydept').css({
+      'position': 'absolute',
+      'left': '-2000px',
+  	});
+  	$('#goUp-title2011').hide();
 		$('#goUp-dept2011').hide();
 		$('#goUp-title2008').hide();
 		$('#goUp-dept2008').hide();
@@ -454,22 +500,49 @@ function changeTreeMap(year){
 		$('#goUp-title2009').hide();
 		$('#goUp-dept2009').hide();
 	}
-	if(year == "2011"){
-		$('#2011-bytitle').show();
-		$('#2011-bydept').show();
-		$('#2008-bytitle').hide();
-		$('#2008-bydept').hide();
-		$('#2010-bytitle').hide();
-		$('#2010-bydept').hide();
-		$('#2009-bytitle').hide();
-		$('#2009-bydept').hide();
-		$('#goUp-title2011').show();
-		$('#goUp-dept2011').show();
+	if(year == "2009"){
+  	$('#2009-bytitle, #2009-bydept').css({
+      'position': 'relative',
+      'left': '0',
+  	});	  
+  	$('#2010-bytitle, #2010-bydept, #2011-bytitle, #2011-bydept, #2008-bytitle, #2008-bydept').css({
+      'position': 'absolute',
+      'left': '-2000px',
+  	});
+  	$('#goUp-title2011').hide();
+		$('#goUp-dept2011').hide();
 		$('#goUp-title2008').hide();
 		$('#goUp-dept2008').hide();
+		$('#goUp-title2010').hide();
+		$('#goUp-dept2010').hide();
+		$('#goUp-title2009').show();
+		$('#goUp-dept2009').show();
+	}
+	if(year == "2008"){
+  	$('#2008-bytitle, #2008-bydept').css({
+      'position': 'relative',
+      'left': '0',
+  	});	  
+  	$('#2010-bytitle, #2010-bydept, #2009-bytitle, #2009-bydept, #2011-bytitle, #2011-bydept').css({
+      'position': 'absolute',
+      'left': '-2000px',
+  	});
+  	$('#goUp-title2011').hide();
+		$('#goUp-dept2011').hide();
+		$('#goUp-title2008').show();
+		$('#goUp-dept2008').show();
 		$('#goUp-title2010').hide();
 		$('#goUp-dept2010').hide();
 		$('#goUp-title2009').hide();
 		$('#goUp-dept2009').hide();
 	}
 }
+
+(function($) {
+    $.fn.invisible = function() {
+        return this.css("visibility", "hidden");
+    };
+    $.fn.visible = function() {
+        return this.css("visibility", "visible");
+    };
+})(jQuery);

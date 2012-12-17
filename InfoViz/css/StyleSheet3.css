@@ -79,13 +79,6 @@ div #2011-bytitle, #2010-bytitle, #2009-bytitle, #2008-bytitle
 	width: 948px;
 }
 
-div #2010-bydept
-{
-	margin: 0 auto 0;
-	height: 400px;
-	width: 948px;
-}
-
 div #year
 {	
 	height : 36px;
@@ -162,21 +155,7 @@ button
 #tooltipBottomLine-title2011, #tooltipBottomLine-dept2011, #tooltipBottomLine-title2010, #tooltipBottomLine-dept2010, #tooltipBottomLine-title2009, #tooltipBottomLine-dept2009, #tooltipBottomLine-title2008, #tooltipBottomLine-dept2008 {
 }​
 
-.title {
-  margin: 0 auto 0; 
-  height: 400px;
-  width: 948px; 
-  background:url(images/spinner.gif) center center no-repeat;
-}
-
-.dept {
-  margin: 20px 5px 5px; 
-  height: 400px;
-  width: 948px; 
-  background:url(images/spinner.gif) center center no-repeat;
-}
-
-.goUp {
+goUp {
   float: right;
 }
 div #goUp-title2011, #goUp-dept2011, #goUp-title2010, #goUp-dept2010, #goUp-title2009, #goUp-dept2009, #goUp-title2008, #goUp-dept2008{
