@@ -220,6 +220,12 @@ div #rightOutter
 	border-color: #FDFDD9;
 }
 
+div #right
+{
+  line-height: 21px;
+}
+
+
 div #year
 {	
 	height : 9%;
