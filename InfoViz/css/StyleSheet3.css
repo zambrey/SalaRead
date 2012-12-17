@@ -70,6 +70,7 @@ div #2011-bydept, #2010-bydept, #2009-bydept, #2008-bydept
 	margin: 20px 5px 5px;
 	height: 400px;
 	width: 948px;
+	background:url(images/spinner.gif) center center no-repeat;
 }
 
 div #2011-bytitle, #2010-bytitle, #2009-bytitle, #2008-bytitle
@@ -77,6 +78,7 @@ div #2011-bytitle, #2010-bytitle, #2009-bytitle, #2008-bytitle
 	margin: 0 auto 0;
 	height: 400px;
 	width: 948px;
+	background:url(images/spinner.gif) center center no-repeat;
 }
 
 div #year
