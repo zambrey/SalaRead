@@ -91,6 +91,10 @@ function drawLineChart(){
     	var val = (parseInt(n[1])-parseInt(n[0]))*100/parseInt(n[1]);
     	dtable.setValue(i,2,val);
     }
+    var formatter = new google.visualization.NumberFormat({suffix: '%'});
+    	formatter.format(dtable, 2); // Apply formatter to percentile column
+    var formatter = new google.visualization.NumberFormat({prefix: '$', fractionDigits: '5'});
+      formatter.format(dtable, 1); // Apply formatter to salary column
 	var chart = new google.visualization.LineChart(document.getElementById('chart'));
 	chart.draw(dtable,options);
 }
